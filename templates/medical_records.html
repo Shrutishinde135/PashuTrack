@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Medical History | PashuAadhar</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
+    <style>
+        .page-container {
+            max-width: 1200px;
+            margin: 35px auto;
+            padding: 25px;
+        }
+
+        .page-header {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            margin-bottom: 25px;
+            box-shadow: 0 3px 12px rgba(0, 0, 0, 0.08);
+        }
+
+        .page-header h1 {
+            color: #236b45;
+            margin-top: 0;
+        }
+
+        .animal-info {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 25px;
+            color: #555;
+        }
+
+        .animal-info p {
+            margin: 5px 0;
+        }
+
+        .button {
+            display: inline-block;
+            padding: 11px 18px;
+            margin: 8px 8px 8px 0;
+            border-radius: 6px;
+            text-decoration: none;
+            border: none;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .add-button {
+            background: #236b45;
+            color: white;
+        }
+
+        .back-button {
+            background: #e5e7eb;
+            color: #222;
+        }
+
+        .records-heading {
+            color: #236b45;
+            margin: 25px 0 15px;
+        }
+
+        .record-card {
+            background: white;
+            padding: 22px;
+            margin-bottom: 18px;
+            border-radius: 10px;
+            border-left: 5px solid #236b45;
+            box-shadow: 0 3px 12px rgba(0, 0, 0, 0.07);
+        }
+
+        .record-card h3 {
+            margin-top: 0;
+            color: #236b45;
+        }
+
+        .record-card p {
+            line-height: 1.6;
+            overflow-wrap: anywhere;
+        }
+
+        .record-label {
+            font-weight: bold;
+            color: #333;
+        }
+
+        .empty-message {
+            background: white;
+            padding: 30px;
+            text-align: center;
+            border-radius: 10px;
+            color: #666;
+        }
+
+        @media (max-width: 600px) {
+            .page-container {
+                margin: 15px auto;
+                padding: 12px;
+            }
+
+            .page-header,
+            .record-card {
+                padding: 18px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <main class="page-container">
+
+        <section class="page-header">
+
+            <h1>Animal Medical History</h1>
+
+            <div class="animal-info">
+                <p>
+                    <strong>Animal ID:</strong>
+                    {{ animal['animal_id'] }}
+                </p>
+
+                <p>
+                    <strong>Animal Name:</strong>
+                    {{ animal['animal_name'] }}
+                </p>
+
+                <p>
+                    <strong>Animal Type:</strong>
+                    {{ animal['animal_type'] }}
+                </p>
+            </div>
+
+            <a
+                href="{{ url_for('add_medical_record', animal_id=animal['animal_id']) }}"
+                class="button add-button"
+            >
+                + Add Medical Record
+            </a>
+
+            <a
+                href="{{ url_for('animal_details', animal_id=animal['animal_id']) }}"
+                class="button back-button"
+            >
+                Back to Animal Details
+            </a>
+
+        </section>
+
+        <h2 class="records-heading">Medical Records</h2>
+
+        {% if medical_records %}
+
+            {% for record in medical_records %}
+
+                <article class="record-card">
+
+                    <h3>
+                        Medical Visit — {{ record['visit_date'] }}
+                    </h3>
+
+                    <p>
+                        <span class="record-label">Symptoms:</span><br>
+                        {{ record['symptoms'] or 'Not recorded' }}
+                    </p>
+
+                    <p>
+                        <span class="record-label">Diagnosis:</span><br>
+                        {{ record['diagnosis'] or 'Not recorded' }}
+                    </p>
+
+                    <p>
+                        <span class="record-label">Treatment:</span><br>
+                        {{ record['treatment'] or 'Not recorded' }}
+                    </p>
+
+                    <p>
+                        <span class="record-label">Medicines:</span><br>
+                        {{ record['medicines'] or 'Not recorded' }}
+                    </p>
+
+                    <p>
+                        <span class="record-label">Veterinarian:</span><br>
+                        {{ record['veterinarian'] or 'Not recorded' }}
+                    </p>
+
+                    <p>
+                        <span class="record-label">Additional Notes:</span><br>
+                        {{ record['notes'] or 'No additional notes' }}
+                    </p>
+
+                </article>
+
+            {% endfor %}
+
+        {% else %}
+
+            <div class="empty-message">
+                <h3>No Medical Records Found</h3>
+
+                <p>
+                    No medical visits have been recorded for this animal yet.
+                </p>
+
+                <p>
+                    Click <strong>Add Medical Record</strong> to record the
+                    first medical visit.
+                </p>
+            </div>
+
+        {% endif %}
+
+    </main>
+
+</body>
+</html>

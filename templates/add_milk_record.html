@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Add Milk Production | PashuAadhar</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
+    <style>
+        .container {
+            max-width: 800px;
+            margin: 35px auto;
+            padding: 30px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            color: #236b45;
+            margin-bottom: 10px;
+        }
+
+        .animal-info {
+            text-align: center;
+            color: #555;
+            margin-bottom: 25px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+
+        input,
+        textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 15px;
+            box-sizing: border-box;
+        }
+
+        textarea {
+            min-height: 90px;
+            resize: vertical;
+        }
+
+        .help-text {
+            display: block;
+            margin-top: 6px;
+            color: #666;
+            font-size: 13px;
+        }
+
+        .button-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-top: 25px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 6px;
+            text-decoration: none;
+            cursor: pointer;
+            font-size: 15px;
+            text-align: center;
+        }
+
+        .save-btn {
+            background: #236b45;
+            color: white;
+        }
+
+        .back-btn {
+            background: #e5e7eb;
+            color: #222;
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                margin: 15px 12px;
+                padding: 20px;
+            }
+
+            .button-group .btn {
+                width: 100%;
+                box-sizing: border-box;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+
+        <h1>Daily Milk Production</h1>
+
+        <div class="animal-info">
+            <p>
+                <strong>Animal ID:</strong>
+                {{ animal['animal_id'] }}
+            </p>
+
+            <p>
+                <strong>Animal Name:</strong>
+                {{ animal['animal_name'] }}
+            </p>
+
+            <p>
+                <strong>Animal Type:</strong>
+                {{ animal['animal_type'] }}
+            </p>
+        </div>
+
+        <form method="POST">
+
+            <div class="form-group">
+                <label for="production_date">Production Date *</label>
+
+                <input
+                    type="date"
+                    id="production_date"
+                    name="production_date"
+                    required
+                >
+            </div>
+
+            <div class="form-group">
+                <label for="morning_milk">Morning Milk (Litres)</label>
+
+                <input
+                    type="number"
+                    id="morning_milk"
+                    name="morning_milk"
+                    min="0"
+                    max="1000"
+                    step="0.01"
+                    value="0"
+                    required
+                >
+
+                <span class="help-text">
+                    Enter the quantity of milk collected in the morning.
+                </span>
+            </div>
+
+            <div class="form-group">
+                <label for="evening_milk">Evening Milk (Litres)</label>
+
+                <input
+                    type="number"
+                    id="evening_milk"
+                    name="evening_milk"
+                    min="0"
+                    max="1000"
+                    step="0.01"
+                    value="0"
+                    required
+                >
+
+                <span class="help-text">
+                    Enter the quantity of milk collected in the evening.
+                </span>
+            </div>
+
+            <div class="form-group">
+                <label for="notes">Additional Notes</label>
+
+                <textarea
+                    id="notes"
+                    name="notes"
+                    placeholder="Enter observations about milk production"
+                ></textarea>
+            </div>
+
+            <div class="button-group">
+
+                <button type="submit" class="btn save-btn">
+                    Save Milk Record
+                </button>
+
+                <a
+                    href="{{ url_for('animal_details', animal_id=animal['animal_id']) }}"
+                    class="btn back-btn"
+                >
+                    Back to Animal Details
+                </a>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</body>
+</html>

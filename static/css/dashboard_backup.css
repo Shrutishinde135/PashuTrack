@@ -1,0 +1,1755 @@
+/* =====================================================
+   PASHUTRACK DASHBOARD
+   Responsive desktop, tablet and mobile design
+   ===================================================== */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Noto Sans Devanagari", "Nirmala UI", Arial, sans-serif;
+}
+
+html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 20px;
+}
+
+body {
+    background: #f5f7f4;
+    color: #263326;
+    line-height: 1.5;
+    overflow-x: hidden;
+}
+
+button,
+input,
+select,
+textarea {
+    font: inherit;
+}
+
+button {
+    -webkit-tap-highlight-color: transparent;
+}
+
+a,
+button {
+    transition: background-color 0.2s ease,
+                color 0.2s ease,
+                border-color 0.2s ease;
+}
+
+button:focus-visible,
+a:focus-visible,
+select:focus-visible {
+    outline: 3px solid #8ab77c;
+    outline-offset: 3px;
+}
+
+
+/* =====================================================
+   SIDEBAR
+   ===================================================== */
+
+.sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 250px;
+    height: 100vh;
+    height: 100dvh;
+    padding: 22px 15px;
+    background: #ffffff;
+    border-right: 1px solid #e2e7e1;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+    overflow-x: hidden;
+    z-index: 100;
+}
+
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 5px 10px 24px;
+    border-bottom: 1px solid #eeeeee;
+    flex-shrink: 0;
+}
+
+.brand-icon {
+    font-size: 35px;
+    line-height: 1.2;
+}
+
+.brand h2 {
+    font-size: 21px;
+    color: #365d2b;
+    line-height: 1.3;
+}
+
+.brand p {
+    font-size: 11px;
+    color: #777777;
+    margin-top: 3px;
+}
+
+.menu {
+    margin-top: 22px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.menu-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 13px;
+    border-radius: 8px;
+    text-decoration: none;
+    color: #555555;
+    font-size: 14px;
+    line-height: 1.4;
+    min-width: 0;
+}
+
+.menu-item:hover {
+    background: #edf5e9;
+    color: #416e34;
+}
+
+.menu-item.active {
+    background: #e5f1df;
+    color: #365d2b;
+    font-weight: 700;
+}
+
+.menu-item span {
+    width: 23px;
+    min-width: 23px;
+    text-align: center;
+    font-size: 17px;
+}
+
+.sidebar-bottom {
+    margin-top: auto;
+    padding-top: 18px;
+}
+
+
+/* =====================================================
+   LANGUAGE SELECTOR
+   ===================================================== */
+
+.language-box {
+    padding: 17px 10px;
+    border-bottom: 1px solid #eeeeee;
+}
+
+.language-box label {
+    display: block;
+    font-size: 12px;
+    color: #777777;
+    margin-bottom: 7px;
+}
+
+.language-box select {
+    width: 100%;
+    min-height: 40px;
+    padding: 8px 10px;
+    border: 1px solid #dce5d8;
+    border-radius: 7px;
+    background: #ffffff;
+    color: #365d2b;
+    cursor: pointer;
+    outline: none;
+}
+
+.language-box select:focus {
+    border-color: #4f7d40;
+}
+
+
+/* =====================================================
+   MAIN CONTENT
+   ===================================================== */
+
+.main-content {
+    margin-left: 250px;
+    width: calc(100% - 250px);
+    min-height: 100vh;
+    padding: 30px 35px;
+    min-width: 0;
+}
+
+.main-content > * {
+    max-width: 100%;
+    min-width: 0;
+}
+
+
+/* =====================================================
+   TOP BAR
+   ===================================================== */
+
+.topbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+    margin-bottom: 25px;
+}
+
+.welcome-small {
+    color: #777777;
+    font-size: 13px;
+    margin-bottom: 5px;
+}
+
+.topbar h1 {
+    font-size: clamp(23px, 2.2vw, 30px);
+    color: #263326;
+    line-height: 1.3;
+    overflow-wrap: anywhere;
+}
+
+.profile {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 20px;
+    flex-shrink: 0;
+}
+
+.notification {
+    position: relative;
+    font-size: 22px;
+    cursor: pointer;
+}
+
+.notification-count {
+    position: absolute;
+    top: -7px;
+    right: -8px;
+    width: 17px;
+    height: 17px;
+    border-radius: 50%;
+    background: #d9534f;
+    color: #ffffff;
+    font-size: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.profile-info {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    min-width: 0;
+}
+
+.profile-avatar {
+    width: 40px;
+    height: 40px;
+    min-width: 40px;
+    border-radius: 50%;
+    background: #4f7d40;
+    color: #ffffff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: 700;
+}
+
+.profile-info strong {
+    display: block;
+    font-size: 14px;
+    overflow-wrap: anywhere;
+}
+
+.profile-info small {
+    display: block;
+    color: #777777;
+    margin-top: 3px;
+}
+
+
+/* =====================================================
+   QUICK ACTIONS
+   ===================================================== */
+
+.quick-actions {
+    display: flex;
+    align-items: stretch;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-bottom: 25px;
+}
+
+.quick-actions button {
+    min-height: 43px;
+    border: 1px solid #dce5d8;
+    background: #ffffff;
+    padding: 10px 15px;
+    border-radius: 8px;
+    cursor: pointer;
+    color: #3e5d36;
+    font-size: 13px;
+    font-weight: 700;
+    overflow-wrap: anywhere;
+}
+
+.quick-actions button:hover {
+    background: #edf5e9;
+    border-color: #b9d1ae;
+}
+
+.quick-actions button span {
+    margin-right: 6px;
+}
+
+.primary-button {
+    background: #4f7d40;
+    color: #ffffff;
+    border: none;
+    padding: 11px 18px;
+    border-radius: 7px;
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: 700;
+}
+
+.primary-button:hover {
+    background: #3d6830;
+}
+
+
+/* =====================================================
+   STATISTICS
+   ===================================================== */
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 16px;
+    margin-bottom: 25px;
+}
+
+.stat-card {
+    min-width: 0;
+    background: #ffffff;
+    border: 1px solid #e5e9e3;
+    border-radius: 12px;
+    padding: 19px;
+    display: flex;
+    align-items: center;
+    gap: 13px;
+    box-shadow: 0 2px 8px rgba(30, 60, 25, 0.025);
+}
+
+.stat-icon {
+    width: 48px;
+    height: 48px;
+    min-width: 48px;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 24px;
+}
+
+.animal-icon {
+    background: #e9f3e5;
+}
+
+.vaccine-icon {
+    background: #fff3d9;
+}
+
+.pregnancy-icon {
+    background: #f8e9ef;
+}
+
+.medical-icon {
+    background: #e7eef8;
+}
+
+.stat-card > div:last-child {
+    min-width: 0;
+}
+
+.stat-card p {
+    color: #777777;
+    font-size: 12px;
+    overflow-wrap: anywhere;
+}
+
+.stat-card h2 {
+    font-size: 26px;
+    line-height: 1.3;
+    margin: 5px 0;
+    color: #263326;
+}
+
+.stat-card span {
+    color: #999999;
+    font-size: 11px;
+    overflow-wrap: anywhere;
+}
+
+
+/* =====================================================
+   DASHBOARD PANELS
+   ===================================================== */
+
+.dashboard-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+    gap: 20px;
+    margin-bottom: 30px;
+}
+
+.panel {
+    min-width: 0;
+    background: #ffffff;
+    border: 1px solid #e5e9e3;
+    border-radius: 12px;
+    padding: 22px;
+    box-shadow: 0 2px 8px rgba(30, 60, 25, 0.025);
+}
+
+.panel-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 12px;
+    margin-bottom: 20px;
+}
+
+.panel-header h2 {
+    font-size: 19px;
+    line-height: 1.4;
+    overflow-wrap: anywhere;
+}
+
+.panel-header p {
+    font-size: 12px;
+    color: #888888;
+    margin-top: 5px;
+}
+
+.panel-header button {
+    border: none;
+    background: transparent;
+    color: #4c7b3d;
+    cursor: pointer;
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.panel-header button:hover {
+    color: #294f20;
+    text-decoration: underline;
+}
+
+.alert-badge {
+    background: #f1e5d0;
+    color: #8b641f;
+    padding: 6px 11px;
+    border-radius: 20px;
+    font-size: 12px;
+    white-space: nowrap;
+}
+
+
+/* =====================================================
+   EMPTY STATE
+   ===================================================== */
+
+.empty-state {
+    text-align: center;
+    padding: 30px 15px;
+}
+
+.empty-icon {
+    font-size: 52px;
+    margin-bottom: 12px;
+}
+
+.empty-state h3 {
+    font-size: 17px;
+    margin-bottom: 8px;
+}
+
+.empty-state p {
+    color: #888888;
+    font-size: 13px;
+    line-height: 1.6;
+    margin-bottom: 18px;
+}
+
+
+/* =====================================================
+   ALERTS AND REMINDERS
+   ===================================================== */
+
+.alert-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 13px 0;
+    border-bottom: 1px solid #eeeeee;
+}
+
+.alert-item:last-child {
+    border-bottom: none;
+}
+
+.alert-icon {
+    width: 40px;
+    height: 40px;
+    min-width: 40px;
+    background: #f4f6f1;
+    border-radius: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 19px;
+}
+
+.alert-item > div:last-child {
+    min-width: 0;
+}
+
+.alert-item strong {
+    font-size: 13px;
+    overflow-wrap: anywhere;
+}
+
+.alert-item p {
+    color: #888888;
+    font-size: 11px;
+    margin-top: 5px;
+    line-height: 1.5;
+    overflow-wrap: anywhere;
+}
+
+
+/* =====================================================
+   SECTIONS
+   ===================================================== */
+
+.section-block {
+    margin-bottom: 35px;
+    min-width: 0;
+}
+
+.section-title {
+    margin-bottom: 18px;
+}
+
+.section-title h2 {
+    font-size: 22px;
+    line-height: 1.4;
+    overflow-wrap: anywhere;
+}
+
+.section-title p {
+    color: #888888;
+    font-size: 13px;
+    margin-top: 5px;
+    line-height: 1.6;
+}
+
+
+/* =====================================================
+   MODULE CARDS
+   ===================================================== */
+
+.module-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 18px;
+}
+
+.module-card {
+    min-width: 0;
+    background: #ffffff;
+    border: 1px solid #e5e9e3;
+    border-radius: 12px;
+    padding: 22px;
+    box-shadow: 0 2px 8px rgba(30, 60, 25, 0.025);
+    transition: transform 0.2s ease,
+                box-shadow 0.2s ease;
+}
+
+.module-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.06);
+}
+
+.module-icon {
+    font-size: 34px;
+    margin-bottom: 13px;
+}
+
+.module-card h3 {
+    font-size: 17px;
+    line-height: 1.4;
+    margin-bottom: 9px;
+    overflow-wrap: anywhere;
+}
+
+.module-card p {
+    color: #777777;
+    font-size: 12px;
+    line-height: 1.7;
+    min-height: 58px;
+    overflow-wrap: anywhere;
+}
+
+.module-card button {
+    margin-top: 15px;
+    min-height: 38px;
+    border: 1px solid #4f7d40;
+    background: #ffffff;
+    color: #4f7d40;
+    padding: 8px 13px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.module-card button:hover {
+    background: #4f7d40;
+    color: #ffffff;
+}
+
+
+/* =====================================================
+   ROLES
+   ===================================================== */
+
+.role-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 18px;
+}
+
+.role-card {
+    min-width: 0;
+    background: #ffffff;
+    border: 1px solid #e5e9e3;
+    border-radius: 12px;
+    padding: 25px;
+    text-align: center;
+}
+
+.role-icon {
+    font-size: 40px;
+    margin-bottom: 10px;
+}
+
+.role-card h3 {
+    margin-bottom: 8px;
+    font-size: 16px;
+    overflow-wrap: anywhere;
+}
+
+.role-card p {
+    color: #777777;
+    font-size: 12px;
+    line-height: 1.7;
+}
+
+
+/* =====================================================
+   ANALYTICS
+   ===================================================== */
+
+.analytics-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 20px;
+}
+
+.chart-card {
+    min-width: 0;
+    background: #ffffff;
+    border: 1px solid #e5e9e3;
+    border-radius: 12px;
+    padding: 22px;
+}
+
+.chart-card h3 {
+    font-size: 16px;
+    margin-bottom: 20px;
+    line-height: 1.5;
+    overflow-wrap: anywhere;
+}
+
+.chart-placeholder {
+    min-height: 190px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: #888888;
+    text-align: center;
+}
+
+.chart-circle {
+    font-size: 55px;
+    margin-bottom: 12px;
+}
+
+.chart-placeholder p {
+    font-size: 12px;
+    line-height: 1.6;
+}
+
+.chart-bars {
+    width: 80%;
+    max-width: 300px;
+    height: 130px;
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-around;
+    gap: 8px;
+    border-bottom: 1px solid #dddddd;
+    margin-bottom: 15px;
+}
+
+.chart-bars span {
+    width: 28px;
+    max-width: 18%;
+    background: #6d9960;
+    border-radius: 5px 5px 0 0;
+}
+
+
+/* =====================================================
+   FOOTER
+   ===================================================== */
+
+footer {
+    text-align: center;
+    padding: 25px 0 10px;
+    color: #999999;
+    font-size: 11px;
+    line-height: 1.7;
+}
+
+
+/* =====================================================
+   TABLET: 851px TO 1100px
+   ===================================================== */
+
+@media (max-width: 1100px) {
+    .main-content {
+        padding: 25px;
+    }
+
+    .stats-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .module-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .dashboard-grid {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    .stat-card {
+        padding: 17px;
+    }
+}
+
+
+/* =====================================================
+   SMALL LAPTOPS AND TABLETS
+   ===================================================== */
+
+@media (max-width: 850px) {
+    .sidebar {
+        width: 215px;
+        padding: 20px 12px;
+    }
+
+    .brand {
+        gap: 8px;
+        padding-left: 7px;
+        padding-right: 7px;
+    }
+
+    .brand-icon {
+        font-size: 30px;
+    }
+
+    .brand h2 {
+        font-size: 19px;
+    }
+
+    .menu-item {
+        gap: 9px;
+        padding: 11px 9px;
+        font-size: 13px;
+    }
+
+    .main-content {
+        margin-left: 215px;
+        width: calc(100% - 215px);
+        padding: 23px 20px;
+    }
+
+    .role-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .analytics-grid {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    .profile {
+        gap: 12px;
+    }
+
+    .profile-info {
+        gap: 7px;
+    }
+}
+
+
+/* =====================================================
+   MOBILE: UP TO 600px
+   ===================================================== */
+
+@media (max-width: 600px) {
+    body {
+        font-size: 14px;
+    }
+
+    /*
+       Sidebar becomes a compact top navigation area.
+       This prevents the 70px icon-only sidebar problem.
+    */
+
+    .sidebar {
+        position: relative;
+        top: auto;
+        left: auto;
+        width: 100%;
+        height: auto;
+        max-height: none;
+        padding: 12px;
+        border-right: none;
+        border-bottom: 1px solid #e2e7e1;
+        overflow: visible;
+    }
+
+    .brand {
+        padding: 5px 5px 12px;
+        gap: 10px;
+    }
+
+    .brand-icon {
+        font-size: 30px;
+    }
+
+    .brand h2 {
+        font-size: 20px;
+    }
+
+    .brand p {
+        font-size: 11px;
+    }
+
+    .brand > div:last-child {
+        display: block;
+    }
+
+    .menu {
+        margin-top: 12px;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        gap: 8px;
+        overflow-x: auto;
+        overflow-y: hidden;
+        padding: 2px 0 8px;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: thin;
+    }
+
+    .menu-item {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        flex: 0 0 88px;
+        min-height: 68px;
+        gap: 5px;
+        padding: 8px 6px;
+        text-align: center;
+        font-size: 11px;
+        line-height: 1.3;
+        white-space: normal;
+        overflow-wrap: anywhere;
+    }
+
+    .menu-item span {
+        display: block;
+        width: auto;
+        min-width: 0;
+        font-size: 19px;
+    }
+
+    .menu-item:not(.active) {
+        font-size: 11px;
+    }
+
+    .sidebar-bottom {
+        margin-top: 8px;
+        padding-top: 0;
+    }
+
+    .language-box {
+        padding: 10px 5px 3px;
+        border-bottom: none;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+    }
+
+    .language-box label {
+        margin-bottom: 0;
+        flex-shrink: 0;
+    }
+
+    .language-box select {
+        width: auto;
+        min-width: 145px;
+        max-width: 100%;
+        min-height: 38px;
+    }
+
+    /*
+       Main content uses the full phone width.
+    */
+
+    .main-content {
+        margin-left: 0;
+        width: 100%;
+        min-height: auto;
+        padding: 18px 14px 25px;
+    }
+
+    .topbar {
+        align-items: flex-start;
+        gap: 12px;
+        margin-bottom: 20px;
+    }
+
+    .topbar > div:first-child {
+        min-width: 0;
+    }
+
+    .welcome-small {
+        font-size: 11px;
+    }
+
+    .topbar h1 {
+        font-size: 23px;
+        line-height: 1.35;
+    }
+
+    .profile {
+        gap: 10px;
+    }
+
+    .notification {
+        font-size: 20px;
+        margin-top: 5px;
+    }
+
+    .profile-info {
+        display: none;
+    }
+
+    /*
+       Quick actions appear in a two-column layout.
+    */
+
+    .quick-actions {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 9px;
+        margin-bottom: 20px;
+    }
+
+    .quick-actions button {
+        width: 100%;
+        min-width: 0;
+        min-height: 46px;
+        padding: 10px 8px;
+        font-size: 12px;
+        line-height: 1.5;
+        white-space: normal;
+    }
+
+    /*
+       Two compact statistic cards per row.
+    */
+
+    .stats-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 10px;
+        margin-bottom: 20px;
+    }
+
+    .stat-card {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+        padding: 13px;
+        border-radius: 10px;
+    }
+
+    .stat-icon {
+        width: 40px;
+        height: 40px;
+        min-width: 40px;
+        font-size: 21px;
+    }
+
+    .stat-card p {
+        font-size: 11px;
+        line-height: 1.5;
+    }
+
+    .stat-card h2 {
+        font-size: 23px;
+        margin: 4px 0;
+    }
+
+    .stat-card span {
+        font-size: 10px;
+        line-height: 1.4;
+    }
+
+    /*
+       Dashboard panels.
+    */
+
+    .dashboard-grid {
+        grid-template-columns: minmax(0, 1fr);
+        gap: 14px;
+        margin-bottom: 25px;
+    }
+
+    .panel {
+        padding: 16px;
+        border-radius: 10px;
+    }
+
+    .panel-header {
+        gap: 8px;
+        margin-bottom: 15px;
+    }
+
+    .panel-header h2 {
+        font-size: 17px;
+    }
+
+    .panel-header p {
+        font-size: 11px;
+        line-height: 1.5;
+    }
+
+    .panel-header button {
+        font-size: 11px;
+    }
+
+    .alert-badge {
+        padding: 5px 8px;
+        font-size: 10px;
+    }
+
+    .empty-state {
+        padding: 22px 8px;
+    }
+
+    .empty-icon {
+        font-size: 44px;
+    }
+
+    .empty-state h3 {
+        font-size: 16px;
+    }
+
+    .empty-state p {
+        font-size: 12px;
+    }
+
+    .primary-button {
+        min-height: 42px;
+        padding: 10px 13px;
+        font-size: 12px;
+    }
+
+    .alert-item {
+        gap: 10px;
+        padding: 12px 0;
+    }
+
+    .alert-icon {
+        width: 35px;
+        height: 35px;
+        min-width: 35px;
+        font-size: 17px;
+    }
+
+    .alert-item strong {
+        font-size: 12px;
+    }
+
+    .alert-item p {
+        font-size: 11px;
+    }
+
+    /*
+       Sections and module cards.
+    */
+
+    .section-block {
+        margin-bottom: 27px;
+    }
+
+    .section-title {
+        margin-bottom: 14px;
+    }
+
+    .section-title h2 {
+        font-size: 20px;
+    }
+
+    .section-title p {
+        font-size: 12px;
+    }
+
+    .module-grid {
+        grid-template-columns: minmax(0, 1fr);
+        gap: 12px;
+    }
+
+    .module-card {
+        padding: 18px;
+        border-radius: 10px;
+    }
+
+    .module-icon {
+        font-size: 30px;
+        margin-bottom: 8px;
+    }
+
+    .module-card h3 {
+        font-size: 16px;
+    }
+
+    .module-card p {
+        font-size: 12px;
+        min-height: 0;
+    }
+
+    .module-card button {
+        min-height: 40px;
+        padding: 9px 13px;
+    }
+
+    /*
+       Role cards and analytics.
+    */
+
+    .role-grid {
+        grid-template-columns: minmax(0, 1fr);
+        gap: 12px;
+    }
+
+    .role-card {
+        padding: 20px;
+    }
+
+    .role-icon {
+        font-size: 35px;
+    }
+
+    .analytics-grid {
+        grid-template-columns: minmax(0, 1fr);
+        gap: 12px;
+    }
+
+    .chart-card {
+        padding: 16px;
+    }
+
+    .chart-card h3 {
+        font-size: 15px;
+        margin-bottom: 15px;
+    }
+
+    .chart-placeholder {
+        min-height: 165px;
+    }
+
+    .chart-circle {
+        font-size: 45px;
+    }
+
+    .chart-bars {
+        width: 90%;
+        height: 115px;
+    }
+
+    .chart-bars span {
+        width: 22px;
+    }
+
+    footer {
+        padding: 20px 5px 5px;
+        font-size: 10px;
+    }
+}
+
+
+/* =====================================================
+   VERY SMALL MOBILE SCREENS
+   ===================================================== */
+
+@media (max-width: 360px) {
+    .main-content {
+        padding: 15px 10px 22px;
+    }
+
+    .topbar h1 {
+        font-size: 21px;
+    }
+
+    .quick-actions {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    .stats-grid {
+        gap: 8px;
+    }
+
+    .stat-card {
+        padding: 10px;
+    }
+
+    .stat-card h2 {
+        font-size: 21px;
+    }
+
+    .menu-item {
+        flex-basis: 78px;
+        font-size: 10px;
+    }
+
+    .menu-item:not(.active) {
+        font-size: 10px;
+    }
+
+    .language-box {
+        gap: 8px;
+    }
+
+    .language-box select {
+        min-width: 125px;
+    }
+}
+
+
+/* =====================================================
+   ACCESSIBILITY: REDUCED MOTION
+   ===================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        scroll-behavior: auto !important;
+        transition-duration: 0.01ms !important;
+        animation-duration: 0.01ms !important;
+    }
+
+    .module-card:hover {
+        transform: none;
+    }
+}
+
+/* =====================================================
+   FIX: RECENT ANIMAL CARD LAYOUT
+   ===================================================== */
+
+.recent-animals-panel,
+.reminders-panel {
+    min-width: 0;
+    height: auto;
+}
+
+.panel-heading-text {
+    min-width: 0;
+    flex: 1;
+}
+
+.recent-animal-list {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.recent-animal-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    width: 100%;
+    min-width: 0;
+    padding: 16px 0;
+    border-bottom: 1px solid #eeeeee;
+}
+
+.recent-animal-item:last-child {
+    border-bottom: none;
+}
+
+.recent-animal-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    min-width: 44px;
+    border-radius: 10px;
+    background: #f1f5ed;
+    font-size: 23px;
+}
+
+.recent-animal-info {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    flex: 1;
+    min-width: 0;
+    gap: 5px;
+}
+
+.recent-animal-info h3 {
+    margin: 0;
+    font-size: 14px;
+    line-height: 1.5;
+    color: #263326;
+    overflow-wrap: anywhere;
+}
+
+.recent-animal-info p {
+    margin: 0;
+    font-size: 12px;
+    line-height: 1.6;
+    color: #777777;
+    overflow-wrap: anywhere;
+    word-break: normal;
+}
+
+.recent-animal-info .animal-id {
+    color: #888888;
+}
+
+.animal-details-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    align-self: flex-start;
+    width: auto;
+    max-width: 100%;
+    min-height: 40px;
+    margin-top: 7px;
+    padding: 9px 15px;
+    line-height: 1.4;
+    text-align: center;
+    text-decoration: none;
+    white-space: normal;
+    overflow-wrap: anywhere;
+}
+
+
+/* =====================================================
+   FIX: REMINDER CARDS
+   ===================================================== */
+
+.reminder-list {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.reminder-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 13px;
+    width: 100%;
+    min-width: 0;
+    padding: 15px 0;
+    border-bottom: 1px solid #eeeeee;
+}
+
+.reminder-item:last-child {
+    border-bottom: none;
+}
+
+.reminder-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 42px;
+    height: 42px;
+    min-width: 42px;
+    border-radius: 10px;
+    background: #f4f6f1;
+    font-size: 20px;
+}
+
+.vaccination-reminder-icon {
+    background: #fff3d9;
+}
+
+.calving-reminder-icon {
+    background: #f8e9ef;
+}
+
+.medical-reminder-icon {
+    background: #e7eef8;
+}
+
+.reminder-content {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    flex: 1;
+    min-width: 0;
+    gap: 7px;
+}
+
+.reminder-content h3 {
+    margin: 0;
+    font-size: 13px;
+    line-height: 1.6;
+    color: #263326;
+    overflow-wrap: anywhere;
+}
+
+.reminder-content p {
+    margin: 0;
+    font-size: 12px;
+    line-height: 1.7;
+    color: #777777;
+    overflow-wrap: anywhere;
+    word-break: normal;
+}
+
+.reminder-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    align-self: flex-start;
+    width: auto;
+    max-width: 100%;
+    min-height: 40px;
+    margin-top: 5px;
+    padding: 9px 13px;
+    font-size: 12px;
+    line-height: 1.5;
+    text-align: center;
+    text-decoration: none;
+    white-space: normal;
+    overflow-wrap: anywhere;
+}
+
+
+/* =====================================================
+   RESPONSIVE FIXES
+   ===================================================== */
+
+@media (max-width: 850px) {
+    .recent-animals-panel,
+    .reminders-panel {
+        width: 100%;
+    }
+
+    .recent-animal-item,
+    .reminder-item {
+        gap: 11px;
+    }
+}
+
+@media (max-width: 600px) {
+    .recent-animal-item {
+        gap: 10px;
+        padding: 14px 0;
+    }
+
+    .recent-animal-icon {
+        width: 38px;
+        height: 38px;
+        min-width: 38px;
+        font-size: 20px;
+    }
+
+    .recent-animal-info h3 {
+        font-size: 14px;
+    }
+
+    .recent-animal-info p {
+        font-size: 12px;
+    }
+
+    .animal-details-button,
+    .reminder-button {
+        min-height: 42px;
+        max-width: 100%;
+        font-size: 12px;
+    }
+
+    .reminder-item {
+        gap: 10px;
+        padding: 14px 0;
+    }
+
+    .reminder-icon {
+        width: 36px;
+        height: 36px;
+        min-width: 36px;
+        font-size: 18px;
+    }
+
+    .reminder-content h3 {
+        font-size: 13px;
+    }
+
+    .reminder-content p {
+        font-size: 12px;
+    }
+
+    .panel-header {
+        align-items: flex-start;
+    }
+
+    .view-all-button {
+        flex-shrink: 0;
+        min-height: 40px;
+        padding: 9px 12px;
+        text-align: center;
+        white-space: normal;
+    }
+}
+
+@media (max-width: 360px) {
+    .recent-animal-item,
+    .reminder-item {
+        gap: 8px;
+    }
+
+    .recent-animal-icon {
+        width: 34px;
+        height: 34px;
+        min-width: 34px;
+        font-size: 18px;
+    }
+
+    .reminder-icon {
+        width: 32px;
+        height: 32px;
+        min-width: 32px;
+        font-size: 16px;
+    }
+
+    .panel {
+        padding: 13px;
+    }
+
+    .view-all-button {
+        padding: 8px 9px;
+        font-size: 11px;
+    }
+}
+
+/* =========================================
+   PASHUTRACK FINAL DASHBOARD POLISH
+   ========================================= */
+
+/* Keep dashboard sections aligned */
+.dashboard-grid {
+    align-items: stretch;
+}
+
+.recent-animals-panel,
+.reminders-panel {
+    min-width: 0;
+    align-self: stretch;
+}
+
+/* Make panel headings consistent */
+.panel-header h2 {
+    line-height: 1.5;
+    overflow-wrap: anywhere;
+}
+
+.panel-header p {
+    line-height: 1.6;
+}
+
+/* Improve animal list spacing */
+.recent-animal-item {
+    padding: 14px 0;
+    gap: 13px;
+}
+
+.recent-animal-info {
+    gap: 4px;
+}
+
+.recent-animal-info h3 {
+    font-size: 14px;
+    font-weight: 700;
+}
+
+.recent-animal-info .animal-id,
+.recent-animal-info .animal-description {
+    line-height: 1.7;
+}
+
+/* Make buttons consistent and remove underlines */
+.primary-button,
+.quick-actions button,
+.module-card button {
+    text-decoration: none !important;
+    font-weight: 600;
+    border-radius: 8px;
+}
+
+a.primary-button {
+    text-decoration: none !important;
+}
+
+.animal-details-button,
+.reminder-button,
+.view-all-button {
+    min-height: 40px;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+/* Improve reminder spacing */
+.reminder-item {
+    padding: 16px 0;
+}
+
+.reminder-content {
+    gap: 8px;
+}
+
+.reminder-content h3 {
+    line-height: 1.6;
+}
+
+.reminder-content p {
+    line-height: 1.8;
+}
+
+/* Keep English and Marathi text from overflowing */
+.panel,
+.panel-header,
+.panel-heading-text,
+.recent-animal-info,
+.reminder-content {
+    overflow-wrap: anywhere;
+    min-width: 0;
+}
+
+/* Improve desktop panel balance */
+@media (min-width: 1101px) {
+    .dashboard-grid {
+        grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr);
+        gap: 22px;
+    }
+
+    .panel {
+        padding: 24px;
+    }
+}
+
+/* Sidebar language and menu improvements */
+.menu-item {
+    line-height: 1.55;
+}
+
+.menu-item span {
+    flex-shrink: 0;
+}
+
+.language-box select {
+    min-height: 42px;
+}
+
+/* Mobile improvements */
+@media (max-width: 600px) {
+    .main-content {
+        padding: 16px 12px 24px;
+    }
+
+    .panel {
+        padding: 16px;
+    }
+
+    .recent-animal-item {
+        gap: 10px;
+        padding: 13px 0;
+    }
+
+    .reminder-item {
+        gap: 10px;
+        padding: 14px 0;
+    }
+
+    .animal-details-button,
+    .reminder-button,
+    .view-all-button {
+        min-height: 42px;
+        padding: 9px 12px;
+        font-size: 12px;
+        white-space: normal;
+    }
+
+    .panel-header {
+        gap: 10px;
+    }
+
+    .panel-header h2 {
+        font-size: 17px;
+    }
+
+    .panel-header p {
+        font-size: 12px;
+    }
+
+    .menu-item {
+        line-height: 1.4;
+    }
+}

@@ -1,0 +1,1039 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>PashuTrack - Dashboard</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/dashboard.css') }}">
+
+</head>
+
+
+<body>
+
+
+<!-- ================= SIDEBAR ================= -->
+
+<aside class="sidebar">
+
+
+    <div class="brand">
+
+        <div class="brand-icon">
+            🐄
+        </div>
+
+        <div>
+
+            <h2>PashuTrack</h2>
+
+            <p data-i18n="livestockManagement">
+                Livestock Management
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <!-- LANGUAGE -->
+
+    <div class="language-box">
+
+        <label for="languageSelect"
+               data-i18n="language">
+
+            Language
+
+        </label>
+
+        <select id="languageSelect">
+
+            <option value="en">
+                English
+            </option>
+
+            <option value="mr">
+                मराठी
+            </option>
+
+            <option value="hi">
+                हिन्दी
+            </option>
+
+        </select>
+
+    </div>
+
+
+    <!-- MENU -->
+
+    <nav class="menu">
+
+
+        <a href="/dashboard"
+           class="menu-item active">
+
+            <span>📊</span>
+
+            <span data-i18n="dashboard">
+                Dashboard
+            </span>
+
+        </a>
+
+
+        <a href="/animals"
+           class="menu-item">
+
+            <span>🐄</span>
+
+            <span data-i18n="animals">
+                Animals
+            </span>
+
+        </a>
+
+
+        <a href="/animals"
+   class="menu-item">
+
+            <span>💉</span>
+
+            <span data-i18n="vaccination">
+                Vaccination
+            </span>
+
+        </a>
+
+
+        <a href="#medical"
+           class="menu-item">
+
+            <span>🩺</span>
+
+            <span data-i18n="medicalRecords">
+                Medical Records
+            </span>
+
+        </a>
+
+
+        <a href="#pregnancy"
+           class="menu-item">
+
+            <span>🤰</span>
+
+            <span data-i18n="pregnancyCalving">
+                Pregnancy & Calving
+            </span>
+
+        </a>
+
+
+        <a href="#milk"
+           class="menu-item">
+
+            <span>🥛</span>
+
+            <span data-i18n="milkProduction">
+                Milk Production
+            </span>
+
+        </a>
+
+
+        <a href="#ownership"
+           class="menu-item">
+
+            <span>👤</span>
+
+            <span data-i18n="ownership">
+                Ownership
+            </span>
+
+        </a>
+
+
+        <a href="#analytics"
+           class="menu-item">
+
+            <span>📈</span>
+
+            <span data-i18n="analytics">
+                Analytics
+            </span>
+
+        </a>
+
+
+        <a href="#qr"
+           class="menu-item">
+
+            <span>📱</span>
+
+            <span data-i18n="qrIdentification">
+                QR Identification
+            </span>
+
+        </a>
+
+
+    </nav>
+
+
+    <div class="sidebar-bottom">
+
+    <a href="#" class="menu-item">
+        <span>⚙️</span>
+        <span data-i18n="settings">Settings</span>
+    </a>
+
+    <a href="{{ url_for('logout') }}" class="menu-item logout">
+    <span>🚪</span>
+    <span data-i18n="logout">Logout</span>
+</a>
+
+</div>
+
+
+</aside>
+
+
+
+<!-- ================= MAIN CONTENT ================= -->
+
+<main class="main-content">
+
+
+    <!-- TOP BAR -->
+
+    <header class="topbar">
+
+
+        <div>
+
+            <p class="welcome-small"
+               data-i18n="welcome">
+
+                Welcome back!
+
+            </p>
+
+
+            <h1 data-i18n="dashboard">
+
+                Dashboard
+
+            </h1>
+
+        </div>
+
+
+        <div class="profile">
+
+
+            <div class="notification">
+
+                🔔
+
+                <span class="notification-count">
+                    3
+                </span>
+
+            </div>
+
+
+            <div class="profile-info">
+
+
+                <div class="profile-avatar">
+                    S
+                </div>
+
+
+                <div>
+
+                    <strong data-i18n="systemUser">
+                        System User
+                    </strong>
+
+                    <small data-i18n="administrator">
+                        Administrator
+                    </small>
+
+                </div>
+
+
+            </div>
+
+
+        </div>
+
+
+    </header>
+
+
+
+    <!-- ================= QUICK ACTIONS ================= -->
+
+    <section class="quick-actions">
+
+
+        <button onclick="window.location.href='/add-animal'">
+
+            <span>➕</span>
+
+            <span data-i18n="registerAnimal">
+                Register Animal
+            </span>
+
+        </button>
+
+
+        <button onclick="showComingSoon('scanQR')">
+
+            <span>📱</span>
+
+            <span data-i18n="scanQR">
+                Scan QR
+            </span>
+
+        </button>
+
+
+        <button onclick="window.location.href='/animals'">
+
+            <span>💉</span>
+
+            <span data-i18n="addVaccination">
+                Add Vaccination
+            </span>
+
+        </button>
+
+
+        <button onclick="showComingSoon('addMedical')">
+
+            <span>🩺</span>
+
+            <span data-i18n="addMedical">
+                Add Medical Record
+            </span>
+
+        </button>
+
+
+    </section>
+
+
+
+    <!-- ================= STATISTICS ================= -->
+
+    <section class="stats-grid">
+
+
+        <div class="stat-card">
+
+            <div class="stat-icon animal-icon">
+                🐄
+            </div>
+
+            <div>
+
+                <p data-i18n="totalAnimals">
+                    Total Animals
+                </p>
+
+                <h2>
+                    {{ total_animals }}
+                </h2>
+
+                <span data-i18n="noAnimals">
+                    No animals registered yet
+                </span>
+
+            </div>
+
+        </div>
+
+
+        <div class="stat-card">
+
+            <div class="stat-icon vaccine-icon">
+                💉
+            </div>
+
+            <div>
+
+                <p data-i18n="vaccinationsDue">
+                    Vaccinations Due
+                </p>
+
+                <h2>
+                    0
+                </h2>
+
+                <span data-i18n="upcomingVaccinations">
+                    Upcoming vaccinations
+                </span>
+
+            </div>
+
+        </div>
+
+
+        <div class="stat-card">
+
+            <div class="stat-icon pregnancy-icon">
+                🤰
+            </div>
+
+            <div>
+
+                <p data-i18n="pregnantAnimals">
+                    Pregnant Animals
+                </p>
+
+                <h2>
+                    0
+                </h2>
+
+                <span data-i18n="currentlyPregnant">
+                    Currently pregnant
+                </span>
+
+            </div>
+
+        </div>
+
+
+        <div class="stat-card">
+
+            <div class="stat-icon medical-icon">
+                🩺
+            </div>
+
+            <div>
+
+                <p data-i18n="medicalCases">
+                    Medical Cases
+                </p>
+
+                <h2>
+                    0
+                </h2>
+
+                <span data-i18n="recentMedical">
+                    Recent medical records
+                </span>
+
+            </div>
+
+        </div>
+
+
+    </section>
+
+
+
+    <!-- ================= DASHBOARD GRID ================= -->
+
+    <section class="dashboard-grid">
+
+
+        <!-- RECENT ANIMALS -->
+
+        <div class="panel"
+             id="animals">
+
+
+            <div class="panel-header">
+
+
+                <div>
+
+                    <h2 data-i18n="recentAnimals">
+                        Recent Animals
+                    </h2>
+
+                    <p data-i18n="recentAnimalsText">
+                        Recently registered livestock
+                    </p>
+
+                </div>
+
+
+                <button onclick="window.location.href='/animals'"
+                        data-i18n="viewAll">
+
+                    View All
+
+                </button>
+
+
+            </div>
+
+
+            {% if recent_animals %}
+
+            <div class="empty-state">
+
+                <div class="empty-icon">
+                    🐄
+                </div>
+
+                <h3 data-i18n="recentAnimals">
+                    Recent Animals
+                </h3>
+
+                <p>
+                    {{ recent_animals|length }}
+                    <span data-i18n="animals">
+                        Animals
+                    </span>
+                </p>
+
+                <button class="primary-button"
+                        onclick="window.location.href='/animals'"
+                        data-i18n="viewAll">
+
+                    View All
+
+                </button>
+
+            </div>
+
+            {% else %}
+
+            <div class="empty-state">
+
+                <div class="empty-icon">
+                    🐄
+                </div>
+
+                <h3 data-i18n="noAnimalsRegistered">
+                    No animals registered
+                </h3>
+
+                <p data-i18n="registerFirstAnimal">
+
+                    Register your first cow or buffalo
+                    to start maintaining digital records.
+
+                </p>
+
+                <button class="primary-button"
+                        onclick="window.location.href='/add-animal'"
+                        data-i18n="registerAnimal">
+
+                    + Register Animal
+
+                </button>
+
+            </div>
+
+            {% endif %}
+
+
+        </div>
+
+
+
+        <!-- ALERTS -->
+
+        <div class="panel"
+             id="vaccination">
+
+
+            <div class="panel-header">
+
+
+                <div>
+
+                    <h2 data-i18n="alertsReminders">
+                        Alerts & Reminders
+                    </h2>
+
+                    <p data-i18n="importantActivities">
+                        Important upcoming activities
+                    </p>
+
+                </div>
+
+
+                <span class="alert-badge">
+                    0
+                </span>
+
+
+            </div>
+
+
+            <div class="alert-item">
+
+
+                <div class="alert-icon">
+                    💉
+                </div>
+
+
+                <div>
+
+                    <strong data-i18n="vaccinationReminder">
+                        Vaccination reminders
+                    </strong>
+
+                    <p data-i18n="vaccinationAlertText">
+                        Vaccination alerts will appear here.
+                    </p>
+
+                </div>
+
+
+            </div>
+
+
+            <div class="alert-item">
+
+
+                <div class="alert-icon">
+                    🤰
+                </div>
+
+
+                <div>
+
+                    <strong data-i18n="calvingReminder">
+                        Calving reminders
+                    </strong>
+
+                    <p data-i18n="calvingAlertText">
+                        Upcoming expected calving dates
+                        will appear here.
+                    </p>
+
+                </div>
+
+
+            </div>
+
+
+            <div class="alert-item">
+
+
+                <div class="alert-icon">
+                    🩺
+                </div>
+
+
+                <div>
+
+                    <strong data-i18n="medicalFollowups">
+                        Medical follow-ups
+                    </strong>
+
+                    <p data-i18n="medicalAlertText">
+                        Follow-up medical records will
+                        appear here.
+                    </p>
+
+                </div>
+
+
+            </div>
+
+
+        </div>
+
+
+    </section>
+
+
+
+    <!-- ================= MANAGEMENT MODULES ================= -->
+
+    <section class="section-block">
+
+
+        <div class="section-title">
+
+            <h2 data-i18n="livestockManagementTitle">
+                Livestock Management
+            </h2>
+
+            <p data-i18n="livestockManagementText">
+                Manage complete digital records of every animal.
+            </p>
+
+        </div>
+
+
+
+        <div class="module-grid">
+
+
+            <div class="module-card"
+                 id="qr">
+
+                <div class="module-icon">
+                    📱
+                </div>
+
+                <h3 data-i18n="qrIdentification">
+                    QR Identification
+                </h3>
+
+                <p data-i18n="qrText">
+                    Generate a unique QR-based digital
+                    identity for every cow and buffalo.
+                </p>
+
+                <button onclick="showComingSoon('qrIdentification')"
+                        data-i18n="manageQR">
+
+                    Manage QR
+
+                </button>
+
+            </div>
+
+
+
+            <div class="module-card"
+                 id="medical">
+
+                <div class="module-icon">
+                    🩺
+                </div>
+
+                <h3 data-i18n="medicalRecords">
+                    Medical Records
+                </h3>
+
+                <p data-i18n="medicalText">
+                    Store diseases, diagnosis,
+                    treatment, medicines and veterinary visits.
+                </p>
+
+                <button onclick="showComingSoon('medicalRecords')"
+                        data-i18n="viewRecords">
+
+                    View Records
+
+                </button>
+
+            </div>
+
+
+
+            <div class="module-card"
+                 id="pregnancy">
+
+                <div class="module-icon">
+                    🤰
+                </div>
+
+                <h3 data-i18n="pregnancyCalving">
+                    Pregnancy & Calving
+                </h3>
+
+                <p data-i18n="pregnancyText">
+                    Maintain pregnancy count, breeding,
+                    expected calving and calving history.
+                </p>
+
+                <button onclick="showComingSoon('pregnancyCalving')"
+                        data-i18n="viewRecords">
+
+                    View Records
+
+                </button>
+
+            </div>
+
+
+
+            <div class="module-card"
+                 id="milk">
+
+                <div class="module-icon">
+                    🥛
+                </div>
+
+                <h3 data-i18n="milkProduction">
+                    Milk Production
+                </h3>
+
+                <p data-i18n="milkText">
+                    Record daily milk production and
+                    analyze production trends.
+                </p>
+
+                <button onclick="showComingSoon('milkProduction')"
+                        data-i18n="viewRecords">
+
+                    View Records
+
+                </button>
+
+            </div>
+
+
+
+            <div class="module-card"
+                 id="ownership">
+
+                <div class="module-icon">
+                    👤
+                </div>
+
+                <h3 data-i18n="ownershipHistory">
+                    Ownership History
+                </h3>
+
+                <p data-i18n="ownershipText">
+                    Maintain the ownership history of
+                    each animal for verification.
+                </p>
+
+                <button onclick="showComingSoon('ownershipHistory')"
+                        data-i18n="viewHistory">
+
+                    View History
+
+                </button>
+
+            </div>
+
+
+
+            <div class="module-card"
+                 id="analytics">
+
+                <div class="module-icon">
+                    📊
+                </div>
+
+                <h3 data-i18n="analyticsReports">
+                    Analytics & Reports
+                </h3>
+
+                <p data-i18n="analyticsText">
+                    Analyze vaccination, health,
+                    pregnancy and milk production data.
+                </p>
+
+                <button onclick="showComingSoon('analytics')"
+                        data-i18n="viewAnalytics">
+
+                    View Analytics
+
+                </button>
+
+            </div>
+
+
+        </div>
+
+    </section>
+
+
+
+    <!-- ================= ROLE BASED ACCESS ================= -->
+
+    <section class="section-block">
+
+
+        <div class="section-title">
+
+            <h2 data-i18n="roleBasedAccess">
+                Role-Based Access
+            </h2>
+
+            <p data-i18n="roleBasedText">
+                Different users will have different permissions.
+            </p>
+
+        </div>
+
+
+
+        <div class="role-grid">
+
+
+            <div class="role-card">
+
+                <div class="role-icon">
+                    👨‍🌾
+                </div>
+
+                <h3 data-i18n="farmer">
+                    Farmer
+                </h3>
+
+                <p data-i18n="farmerText">
+                    Manage own livestock and permitted
+                    animal records.
+                </p>
+
+            </div>
+
+
+
+            <div class="role-card">
+
+                <div class="role-icon">
+                    🩺
+                </div>
+
+                <h3 data-i18n="veterinarian">
+                    Veterinarian
+                </h3>
+
+                <p data-i18n="vetText">
+                    Access medical history and update
+                    treatment and vaccination records.
+                </p>
+
+            </div>
+
+
+
+            <div class="role-card">
+
+                <div class="role-icon">
+                    👨‍💼
+                </div>
+
+                <h3 data-i18n="administrator">
+                    Administrator
+                </h3>
+
+                <p data-i18n="adminText">
+                    Manage users, animals and
+                    system-wide records.
+                </p>
+
+            </div>
+
+
+        </div>
+
+    </section>
+
+
+
+    <!-- ================= ANALYTICS ================= -->
+
+    <section class="section-block">
+
+
+        <div class="section-title">
+
+            <h2 data-i18n="analyticsOverview">
+                Analytics Overview
+            </h2>
+
+            <p data-i18n="analyticsOverviewText">
+                Data analysis and visualizations will be
+                generated from livestock records.
+            </p>
+
+        </div>
+
+
+
+        <div class="analytics-grid">
+
+
+            <div class="chart-card">
+
+                <h3 data-i18n="vaccinationStatus">
+                    Vaccination Status
+                </h3>
+
+                <div class="chart-placeholder">
+
+                    <div class="chart-circle">
+                        📊
+                    </div>
+
+                    <p data-i18n="vaccinationAnalytics">
+                        Vaccination analytics will
+                        appear here.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+
+            <div class="chart-card">
+
+                <h3 data-i18n="milkTrend">
+                    Milk Production Trend
+                </h3>
+
+                <div class="chart-placeholder">
+
+                    <div class="chart-bars">
+
+                        <span style="height:30%;"></span>
+                        <span style="height:50%;"></span>
+                        <span style="height:40%;"></span>
+                        <span style="height:70%;"></span>
+                        <span style="height:60%;"></span>
+                        <span style="height:80%;"></span>
+
+                    </div>
+
+                    <p data-i18n="milkAnalytics">
+                        Milk production analysis will
+                        appear here.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+    </section>
+
+
+
+    <footer>
+
+        <p data-i18n="footer">
+
+            © 2026 PashuTrack |
+            QR-Based Digital Livestock Health &
+            Identity Management System
+
+        </p>
+
+    </footer>
+
+
+</main>
+
+
+
+<script src="{{ url_for('static', filename='js/dashboard.js') }}"></script>
+
+<script src="{{ url_for('static', filename='js/language.js') }}"></script>
+
+
+</body>
+
+</html>

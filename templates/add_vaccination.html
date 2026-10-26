@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Vaccination - PashuTrack</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
+    <style>
+        body {
+            background: #f5f8f3;
+            color: #263326;
+        }
+
+        .form-container {
+            max-width: 750px;
+            margin: 40px auto;
+            padding: 30px;
+            background: white;
+            border-radius: 14px;
+            box-shadow: 0 4px 18px rgba(0, 0, 0, 0.08);
+        }
+
+        .form-header {
+            margin-bottom: 25px;
+        }
+
+        .form-header h1 {
+            color: #365d2b;
+            margin-bottom: 10px;
+            font-size: 28px;
+        }
+
+        .form-header p {
+            color: #666;
+            line-height: 1.6;
+        }
+
+        .animal-info {
+            padding: 15px;
+            background: #edf5e9;
+            border-radius: 8px;
+            margin-bottom: 25px;
+            line-height: 1.8;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #d5dfd0;
+            border-radius: 7px;
+            font-size: 15px;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #4f7d40;
+        }
+
+        .form-group textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        .form-buttons {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-top: 25px;
+        }
+
+        .submit-button,
+        .cancel-button {
+            display: inline-block;
+            padding: 12px 20px;
+            border-radius: 7px;
+            font-size: 15px;
+            font-weight: bold;
+            cursor: pointer;
+            text-decoration: none;
+            text-align: center;
+        }
+
+        .submit-button {
+            background: #4f7d40;
+            color: white;
+            border: none;
+        }
+
+        .submit-button:hover {
+            background: #365d2b;
+        }
+
+        .cancel-button {
+            background: #eeeeee;
+            color: #333;
+        }
+
+        .language-container {
+            display: flex;
+            justify-content: flex-end;
+            margin-bottom: 20px;
+        }
+
+        .language-container select {
+            padding: 9px;
+            border: 1px solid #d5dfd0;
+            border-radius: 6px;
+        }
+
+        @media (max-width: 600px) {
+            .form-container {
+                margin: 15px;
+                padding: 20px;
+            }
+
+            .form-header h1 {
+                font-size: 23px;
+            }
+
+            .form-buttons {
+                flex-direction: column;
+            }
+
+            .submit-button,
+            .cancel-button {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <main class="form-container">
+
+        <div class="language-container">
+            <select id="languageSelect" onchange="applyLanguage(this.value)">
+                <option value="en">English</option>
+                <option value="mr">मराठी</option>
+                <option value="hi">हिन्दी</option>
+            </select>
+        </div>
+
+        <div class="form-header">
+            <h1 data-i18n="addVaccination">Add Vaccination Record</h1>
+            <p data-i18n="vaccinationFormDescription">
+                Record vaccination details for this animal.
+            </p>
+        </div>
+
+        <div class="animal-info">
+            <strong data-i18n="animalId">Animal ID:</strong>
+            {{ animal['animal_id'] }}
+            <br>
+
+            <strong data-i18n="animalName">Animal Name:</strong>
+            {{ animal['animal_name'] }}
+            <br>
+
+            <strong data-i18n="animalType">Animal Type:</strong>
+            {{ animal['animal_type'] }}
+        </div>
+
+        <form method="POST"
+              action="{{ url_for('add_vaccination', animal_id=animal['animal_id']) }}">
+
+            <div class="form-group">
+                <label for="vaccine_name" data-i18n="vaccinationVaccineName">
+                    Vaccine Name *
+                </label>
+
+                <input
+                    type="text"
+                    id="vaccine_name"
+                    name="vaccine_name"
+                    required
+                    maxlength="150"
+                    data-i18n-placeholder="enterVaccineName"
+                    placeholder="Enter vaccine name">
+            </div>
+
+            <div class="form-group">
+                <label for="vaccination_date" data-i18n="vaccinationDate">
+                    Vaccination Date *
+                </label>
+
+                <input
+                    type="date"
+                    id="vaccination_date"
+                    name="vaccination_date"
+                    required>
+            </div>
+
+            <div class="form-group">
+                <label for="next_due_date" data-i18n="nextDueDate">
+                    Next Due Date
+                </label>
+
+                <input
+                    type="date"
+                    id="next_due_date"
+                    name="next_due_date">
+            </div>
+
+            <div class="form-group">
+                <label for="veterinarian" data-i18n="veterinarian">
+                    Veterinarian Name
+                </label>
+
+                <input
+                    type="text"
+                    id="veterinarian"
+                    name="veterinarian"
+                    maxlength="150"
+                    data-i18n-placeholder="enterVeterinarianName"
+                    placeholder="Enter veterinarian name">
+            </div>
+
+            <div class="form-group">
+                <label for="notes" data-i18n="notes">
+                    Additional Notes
+                </label>
+
+                <textarea
+                    id="notes"
+                    name="notes"
+                    data-i18n-placeholder="enterVaccinationNotes"
+                    placeholder="Enter any additional information"></textarea>
+            </div>
+
+            <div class="form-buttons">
+                <button
+                    type="submit"
+                    class="submit-button"
+                    data-i18n="saveVaccination">
+                    Save Vaccination
+                </button>
+
+                <a
+                    href="{{ url_for('vaccination', animal_id=animal['animal_id']) }}"
+                    class="cancel-button"
+                    data-i18n="cancel">
+                    Cancel
+                </a>
+            </div>
+
+        </form>
+
+    </main>
+
+    <script src="{{ url_for('static', filename='js/language.js') }}"></script>
+
+</body>
+</html>

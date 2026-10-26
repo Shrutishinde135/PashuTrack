@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Pregnancy History | PashuAadhar</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
+    <style>
+        .page-container {
+            max-width: 1100px;
+            margin: 35px auto;
+            padding: 25px;
+        }
+
+        .page-header {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            margin-bottom: 25px;
+            box-shadow: 0 3px 12px rgba(0, 0, 0, 0.08);
+        }
+
+        h1, h2 {
+            color: #236b45;
+        }
+
+        .animal-info {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 25px;
+            color: #555;
+        }
+
+        .animal-info p {
+            margin: 5px 0;
+        }
+
+        .button {
+            display: inline-block;
+            padding: 11px 18px;
+            margin: 8px 8px 8px 0;
+            border-radius: 6px;
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        .add-button {
+            background: #236b45;
+            color: white;
+        }
+
+        .back-button {
+            background: #e5e7eb;
+            color: #222;
+        }
+
+        .record-card {
+            background: white;
+            padding: 22px;
+            margin-bottom: 18px;
+            border-radius: 10px;
+            border-left: 5px solid #236b45;
+            box-shadow: 0 3px 12px rgba(0, 0, 0, 0.07);
+        }
+
+        .record-card h3 {
+            margin-top: 0;
+            color: #236b45;
+        }
+
+        .record-card p {
+            line-height: 1.6;
+            overflow-wrap: anywhere;
+        }
+
+        .label {
+            font-weight: bold;
+            color: #333;
+        }
+
+        .empty-message {
+            background: white;
+            padding: 30px;
+            text-align: center;
+            border-radius: 10px;
+            color: #666;
+        }
+
+        @media (max-width: 600px) {
+            .page-container {
+                margin: 15px auto;
+                padding: 12px;
+            }
+
+            .page-header,
+            .record-card {
+                padding: 18px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <main class="page-container">
+
+        <section class="page-header">
+
+            <h1>Pregnancy & Calving History</h1>
+
+            <div class="animal-info">
+
+                <p>
+                    <strong>Animal ID:</strong>
+                    {{ animal['animal_id'] }}
+                </p>
+
+                <p>
+                    <strong>Animal Name:</strong>
+                    {{ animal['animal_name'] }}
+                </p>
+
+                <p>
+                    <strong>Animal Type:</strong>
+                    {{ animal['animal_type'] }}
+                </p>
+
+            </div>
+
+            <a
+                href="{{ url_for('add_pregnancy_record', animal_id=animal['animal_id']) }}"
+                class="button add-button"
+            >
+                + Add Pregnancy Record
+            </a>
+
+            <a
+                href="{{ url_for('animal_details', animal_id=animal['animal_id']) }}"
+                class="button back-button"
+            >
+                Back to Animal Details
+            </a>
+
+        </section>
+
+        <h2>Pregnancy Records</h2>
+
+        {% if pregnancy_records %}
+
+            {% for record in pregnancy_records %}
+
+                <article class="record-card">
+
+                    <h3>
+                        Pregnancy Record — {{ record['pregnancy_date'] }}
+                    </h3>
+
+                    <p>
+                        <span class="label">Pregnancy Confirmation:</span><br>
+                        {{ record['pregnancy_date'] }}
+                    </p>
+
+                    <p>
+                        <span class="label">Expected Calving Date:</span><br>
+                        {{ record['expected_calving_date'] or 'Not recorded' }}
+                    </p>
+
+                    <p>
+                        <span class="label">Actual Calving Date:</span><br>
+                        {{ record['actual_calving_date'] or 'Not recorded' }}
+                    </p>
+
+                    <p>
+                        <span class="label">Calving Outcome:</span><br>
+                        {{ record['calving_outcome'] or 'Not recorded' }}
+                    </p>
+
+                    <p>
+                        <span class="label">Number of Calves:</span><br>
+                        {{ record['calf_count'] }}
+                    </p>
+
+                    <p>
+                        <span class="label">Veterinarian:</span><br>
+                        {{ record['veterinarian'] or 'Not recorded' }}
+                    </p>
+
+                    <p>
+                        <span class="label">Additional Notes:</span><br>
+                        {{ record['notes'] or 'No additional notes' }}
+                    </p>
+
+                </article>
+
+            {% endfor %}
+
+        {% else %}
+
+            <div class="empty-message">
+
+                <h3>No Pregnancy Records Found</h3>
+
+                <p>
+                    No pregnancy or calving records have been saved for this
+                    animal yet.
+                </p>
+
+                <p>
+                    Select <strong>Add Pregnancy Record</strong> to record
+                    pregnancy information.
+                </p>
+
+            </div>
+
+        {% endif %}
+
+    </main>
+
+</body>
+</html>

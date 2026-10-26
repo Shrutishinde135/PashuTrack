@@ -1,0 +1,631 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>PashuAadhar - Animal Details</title>
+
+
+    <style>
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #f5f7fb;
+            margin: 0;
+        }
+
+
+        .container {
+            width: 90%;
+            max-width: 900px;
+            margin: 35px auto;
+        }
+
+
+        .top {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+
+        .language-box {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+
+        .language-box select {
+            width: auto;
+            padding: 8px;
+        }
+
+
+        .back {
+            color: #5c6a89;
+            text-decoration: none;
+        }
+
+
+        .card {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+        }
+
+
+        .card h2 {
+            margin-top: 0;
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 10px;
+        }
+
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+
+        .info {
+            background: #f8fafc;
+            padding: 14px;
+            border-radius: 8px;
+        }
+
+
+        .label {
+            font-weight: bold;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+
+        @media(max-width:700px) {
+
+            .info-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .top {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 15px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+<div style="margin-top: 25px; padding: 20px; background: #f0f7ed; border-radius: 10px;">
+
+    <h2 style="margin-bottom: 15px;">Vaccination Records</h2>
+
+    <a href="{{ url_for('vaccination', animal_id=animal['animal_id']) }}"
+       style="display: inline-block; padding: 10px 16px; background: #4f7d40; color: white; text-decoration: none; border-radius: 6px; margin-right: 10px;">
+        View Vaccination History
+    </a>
+
+    <a href="{{ url_for('add_vaccination', animal_id=animal['animal_id']) }}"
+       style="display: inline-block; padding: 10px 16px; background: #2864dc; color: white; text-decoration: none; border-radius: 6px;">
+        Add Vaccination
+    </a>
+
+</div>
+
+<body>
+    <!-- Medical Records Buttons -->
+<div style="margin-top: 15px;">
+
+    <a
+        href="{{ url_for('medical_records', animal_id=animal['animal_id']) }}"
+        style="display: inline-block; padding: 12px 20px; background: #236b45; color: white; text-decoration: none; border-radius: 6px; margin: 5px;"
+    >
+        View Medical History
+    </a>
+
+    <a
+        href="{{ url_for('add_medical_record', animal_id=animal['animal_id']) }}"
+        style="display: inline-block; padding: 12px 20px; background: #2874a6; color: white; text-decoration: none; border-radius: 6px; margin: 5px;"
+    >
+        + Add Medical Record
+    </a>
+
+</div>
+
+<!-- Pregnancy and Calving Buttons -->
+<div style="margin-top: 15px;">
+
+    <a
+        href="{{ url_for('pregnancy_records', animal_id=animal['animal_id']) }}"
+        style="display: inline-block; padding: 12px 20px; background: #8e44ad; color: white; text-decoration: none; border-radius: 6px; margin: 5px;"
+    >
+        View Pregnancy & Calving History
+    </a>
+
+    <a
+        href="{{ url_for('add_pregnancy_record', animal_id=animal['animal_id']) }}"
+        style="display: inline-block; padding: 12px 20px; background: #d35400; color: white; text-decoration: none; border-radius: 6px; margin: 5px;"
+    >
+        + Add Pregnancy Record
+    </a>
+
+
+
+    
+</div>
+
+<!-- Milk Production Records Button -->
+<div style="margin-top: 15px;">
+    <a
+        href="{{ url_for('milk_records', animal_id=animal['animal_id']) }}"
+        style="display: inline-block; padding: 12px 20px; background-color: #16803c; color: white; text-decoration: none; border-radius: 6px; margin-right: 10px;"
+    >
+        Milk Production Records
+    </a>
+
+    <!-- Ownership History Button -->
+    <a
+        href="{{ url_for('ownership_history', animal_id=animal['animal_id']) }}"
+        style="display: inline-block; padding: 12px 20px; background-color: #7b3fb5; color: white; text-decoration: none; border-radius: 6px;"
+    >
+        Ownership History
+    </a>
+</div>
+
+
+<div class="container">
+
+
+    <div class="top">
+
+
+
+
+        
+        <div>
+
+            <h1 data-i18n="animalDetails">
+                Animal Details
+            </h1>
+
+
+            <a href="/animals"
+               class="back"
+               data-i18n="backToAnimals">
+
+                ← Back to Animals
+
+            </a>
+
+        </div>
+
+
+
+        <div class="language-box">
+
+            <label for="languageSelect"
+                   data-i18n="language">
+
+                Language
+
+            </label>
+
+
+            <select id="languageSelect">
+
+                <option value="en">
+                    English
+                </option>
+
+                <option value="mr">
+                    मराठी
+                </option>
+
+                <option value="hi">
+                    हिन्दी
+                </option>
+
+            </select>
+
+        </div>
+
+
+    </div>
+
+    
+
+
+
+    <!-- BASIC INFORMATION -->
+
+    <div class="card">
+
+
+        <h2 data-i18n="basicInformation">
+            Basic Information
+        </h2>
+
+
+        <div class="info-grid">
+
+
+            <div class="info">
+
+                <span class="label"
+                      data-i18n="animalId">
+
+                    Animal ID
+
+                </span>
+
+                {{ animal['animal_id'] }}
+
+            </div>
+
+
+
+            <div class="info">
+
+                <span class="label"
+                      data-i18n="animalName">
+
+                    Animal Name
+
+                </span>
+
+                {{ animal['animal_name'] }}
+
+            </div>
+
+
+
+            <div class="info">
+
+                <span class="label"
+                      data-i18n="animalType">
+
+                    Animal Type
+
+                </span>
+
+
+                {% if animal['animal_type'] == 'Cow' %}
+
+                    <span data-i18n="cow">
+                        Cow
+                    </span>
+
+                {% elif animal['animal_type'] == 'Buffalo' %}
+
+                    <span data-i18n="buffalo">
+                        Buffalo
+                    </span>
+
+                {% else %}
+
+                    {{ animal['animal_type'] }}
+
+                {% endif %}
+
+
+            </div>
+
+
+
+            <div class="info">
+
+                <span class="label"
+                      data-i18n="breed">
+
+                    Breed
+
+                </span>
+
+                {{ animal['breed'] }}
+
+            </div>
+
+
+
+            <div class="info">
+
+                <span class="label"
+                      data-i18n="gender">
+
+                    Gender
+
+                </span>
+
+
+                {% if animal['gender'] == 'Male' %}
+
+                    <span data-i18n="male">
+                        Male
+                    </span>
+
+                {% elif animal['gender'] == 'Female' %}
+
+                    <span data-i18n="female">
+                        Female
+                    </span>
+
+                {% else %}
+
+                    {{ animal['gender'] }}
+
+                {% endif %}
+
+
+            </div>
+
+
+
+            <div class="info">
+
+                <span class="label"
+                      data-i18n="dateOfBirth">
+
+                    Date of Birth
+
+                </span>
+
+                {{ animal['date_of_birth'] }}
+
+            </div>
+
+
+
+            <div class="info">
+
+                <span class="label"
+                      data-i18n="color">
+
+                    Color
+
+                </span>
+
+                {{ animal['color'] }}
+
+            </div>
+
+
+        </div>
+
+
+    </div>
+
+
+
+    <!-- OWNER INFORMATION -->
+
+    <div class="card">
+
+
+        <h2 data-i18n="ownerInformation">
+
+            Owner Information
+
+        </h2>
+
+
+        <div class="info-grid">
+
+
+            <div class="info">
+
+                <span class="label"
+                      data-i18n="ownerName">
+
+                    Owner Name
+
+                </span>
+
+                {{ animal['owner_name'] }}
+
+            </div>
+
+
+
+            <div class="info">
+
+                <span class="label"
+                      data-i18n="phoneNumber">
+
+                    Phone Number
+
+                </span>
+
+                {{ animal['owner_phone'] }}
+
+            </div>
+
+
+
+            <div class="info">
+
+                <span class="label"
+                      data-i18n="purchaseDate">
+
+                    Purchase Date
+
+                </span>
+
+                {{ animal['purchase_date'] }}
+
+            </div>
+
+
+        </div>
+
+
+    </div>
+
+
+
+    <!-- HEALTH AND REPRODUCTION -->
+
+    <div class="card">
+
+
+        <h2 data-i18n="healthReproduction">
+
+            Health & Reproduction
+
+        </h2>
+
+
+        <div class="info-grid">
+
+
+            <div class="info">
+
+                <span class="label"
+                      data-i18n="pregnancyCount">
+
+                    Pregnancy Count
+
+                </span>
+
+                {{ animal['pregnancy_count'] }}
+
+            </div>
+
+
+
+            <div class="info">
+
+                <span class="label"
+                      data-i18n="calvingCount">
+
+                    Calving Count
+
+                </span>
+
+                {{ animal['calving_count'] }}
+
+            </div>
+
+
+
+            <div class="info">
+
+                <span class="label"
+                      data-i18n="milkPerDay">
+
+                    Milk Production (Litres/Day)
+
+                </span>
+
+                {{ animal['milk_production'] }}
+
+            </div>
+
+
+        </div>
+
+
+    </div>
+
+
+
+    <!-- NOTES -->
+
+    <div class="card">
+
+
+        <h2 data-i18n="additionalNotes">
+
+            Additional Notes
+
+        </h2>
+
+
+        <p>
+
+            {{ animal['notes'] }}
+
+        </p>
+
+
+    </div>
+
+
+
+    <!-- QR IDENTITY -->
+
+    <div class="card">
+
+
+        <h2 data-i18n="digitalAnimalIdentity">
+
+            Digital Animal Identity
+
+        </h2>
+
+
+        <p data-i18n="comingSoon">
+
+            This feature is coming soon.
+
+        </p>
+
+
+    </div>
+
+
+</div>
+
+
+
+<script src="{{ url_for('static', filename='js/language.js') }}"></script>
+
+
+</body>
+
+</html>
+<div class="qr-section">
+
+    <h3 data-i18n="qrIdentification">
+        QR Identification
+    </h3>
+
+    <p>
+        <strong>Animal ID:</strong>
+        {{ animal["animal_id"] }}
+    </p>
+
+    <img
+        src="{{ url_for('static', filename='qr_codes/' + animal['animal_id'] + '.png') }}"
+        alt="Animal QR Code"
+        width="220"
+        height="220"
+    >
+
+    <p>
+        Scan this QR code to access the animal profile.
+    </p>
+
+    <a
+        href="{{ url_for('static', filename='qr_codes/' + animal['animal_id'] + '.png') }}"
+        download
+        class="qr-download-button"
+    >
+        📥 Download QR Code
+    </a>
+
+</div>

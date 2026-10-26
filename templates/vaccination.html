@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>PashuTrack - Vaccination</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+
+    <style>
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f5f7fa;
+        }
+
+        .vaccination-container {
+            max-width: 1100px;
+            margin: 30px auto;
+            padding: 20px;
+        }
+
+        .top-section {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 25px;
+            flex-wrap: wrap;
+        }
+
+        .page-title h1 {
+            margin: 0;
+            font-size: 28px;
+        }
+
+        .page-title p {
+            margin-top: 8px;
+            color: #666;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 11px 18px;
+            border-radius: 8px;
+            text-decoration: none;
+            border: none;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .btn-primary {
+            background: #2e7d32;
+            color: white;
+        }
+
+        .btn-secondary {
+            background: #e8ecef;
+            color: #333;
+        }
+
+        .animal-card {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 25px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+        }
+
+        .animal-card h2 {
+            margin-top: 0;
+        }
+
+        .animal-info {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+        }
+
+        .info-box {
+            background: #f7f9fa;
+            padding: 12px;
+            border-radius: 8px;
+        }
+
+        .info-label {
+            font-size: 13px;
+            color: #777;
+            margin-bottom: 5px;
+        }
+
+        .info-value {
+            font-weight: 600;
+        }
+
+        .records-card {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+        }
+
+        .records-card h2 {
+            margin-top: 0;
+        }
+
+        .table-container {
+            width: 100%;
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 750px;
+        }
+
+        th,
+        td {
+            padding: 13px;
+            text-align: left;
+            border-bottom: 1px solid #eee;
+        }
+
+        th {
+            background: #f5f7f9;
+            font-weight: 600;
+        }
+
+        .empty-message {
+            text-align: center;
+            padding: 40px 20px;
+            color: #777;
+        }
+
+        .date-due {
+            font-weight: 600;
+        }
+
+        .user-info {
+            text-align: right;
+            margin-bottom: 15px;
+            color: #666;
+            font-size: 14px;
+        }
+
+        @media (max-width: 768px) {
+
+            .vaccination-container {
+                margin: 10px auto;
+                padding: 12px;
+            }
+
+            .page-title h1 {
+                font-size: 23px;
+            }
+
+            .animal-info {
+                grid-template-columns: 1fr;
+            }
+
+            .top-section {
+                align-items: flex-start;
+            }
+
+            .button-group {
+                width: 100%;
+            }
+
+            .button-group .btn {
+                flex: 1;
+                text-align: center;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+<div class="vaccination-container">
+
+
+    <!-- USER INFORMATION -->
+
+    <div class="user-info">
+
+        <span data-i18n="loggedInAs">
+            Logged in as
+        </span>
+
+        <strong>{{ username }}</strong>
+
+    </div>
+
+
+    <!-- PAGE HEADER -->
+
+    <div class="top-section">
+
+        <div class="page-title">
+
+            <h1 data-i18n="vaccinationTitle">
+                Vaccination Records
+            </h1>
+
+            <p data-i18n="vaccinationSubtitle">
+                Manage vaccination history of this animal
+            </p>
+
+        </div>
+
+
+        <div class="button-group">
+
+            <a href="{{ url_for('add_vaccination', animal_id=animal['animal_id']) }}"
+               class="btn btn-primary"
+               data-i18n="vaccinationAddButton">
+
+                + Add Vaccination
+
+            </a>
+
+
+            <a href="{{ url_for('animal_details', animal_id=animal['animal_id']) }}"
+               class="btn btn-secondary"
+               data-i18n="back">
+
+                Back
+
+            </a>
+
+        </div>
+
+    </div>
+
+
+    <!-- ANIMAL INFORMATION -->
+
+    <div class="animal-card">
+
+        <h2 data-i18n="vaccinationAnimalInformation">
+            Animal Information
+        </h2>
+
+
+        <div class="animal-info">
+
+
+            <!-- ANIMAL ID -->
+
+            <div class="info-box">
+
+                <div class="info-label"
+                     data-i18n="animalID">
+
+                    Animal ID
+
+                </div>
+
+                <div class="info-value">
+                    {{ animal['animal_id'] }}
+                </div>
+
+            </div>
+
+
+            <!-- ANIMAL NAME -->
+
+            <div class="info-box">
+
+                <div class="info-label"
+                     data-i18n="animalName">
+
+                    Animal Name
+
+                </div>
+
+                <div class="info-value">
+                    {{ animal['animal_name'] }}
+                </div>
+
+            </div>
+
+
+            <!-- ANIMAL TYPE -->
+
+            <div class="info-box">
+
+                <div class="info-label"
+                     data-i18n="animalType">
+
+                    Animal Type
+
+                </div>
+
+                <div class="info-value">
+                    {{ animal['animal_type'] }}
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- VACCINATION RECORDS -->
+
+    <div class="records-card">
+
+        <h2 data-i18n="vaccinationHistory">
+            Vaccination History
+        </h2>
+
+
+        {% if vaccinations %}
+
+        <div class="table-container">
+
+            <table>
+
+                <thead>
+
+                    <tr>
+
+                        <th data-i18n="vaccinationVaccineName">
+                            Vaccine Name
+                        </th>
+
+                        <th data-i18n="vaccinationDate">
+                            Vaccination Date
+                        </th>
+
+                        <th data-i18n="vaccinationNextDue">
+                            Next Due Date
+                        </th>
+
+                        <th data-i18n="vaccinationVeterinarian">
+                            Veterinarian
+                        </th>
+
+                        <th data-i18n="vaccinationNotes">
+                            Notes
+                        </th>
+
+                    </tr>
+
+                </thead>
+
+
+                <tbody>
+
+                {% for record in vaccinations %}
+
+                    <tr>
+
+                        <td>
+                            {{ record['vaccine_name'] }}
+                        </td>
+
+                        <td>
+                            {{ record['vaccination_date'] }}
+                        </td>
+
+                        <td class="date-due">
+                            {{ record['next_due_date'] or '-' }}
+                        </td>
+
+                        <td>
+                            {{ record['veterinarian'] or '-' }}
+                        </td>
+
+                        <td>
+                            {{ record['notes'] or '-' }}
+                        </td>
+
+                    </tr>
+
+                {% endfor %}
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+
+        {% else %}
+
+        <div class="empty-message">
+
+            <p data-i18n="vaccinationNoRecords">
+                No vaccination records found for this animal.
+            </p>
+
+
+            <a href="{{ url_for('add_vaccination', animal_id=animal['animal_id']) }}"
+               class="btn btn-primary"
+               data-i18n="vaccinationAddFirst">
+
+                Add First Vaccination
+
+            </a>
+
+        </div>
+
+        {% endif %}
+
+    </div>
+
+</div>
+
+
+<!-- LANGUAGE SYSTEM -->
+
+<script src="{{ url_for('static', filename='js/language.js') }}"></script>
+
+
+</body>
+
+</html>

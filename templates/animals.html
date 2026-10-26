@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>PashuAadhar - Animals</title>
+
+
+    <style>
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #f5f7fb;
+            margin: 0;
+        }
+
+
+        .container {
+            width: 92%;
+            max-width: 1100px;
+            margin: 35px auto;
+        }
+
+
+        .top {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+
+        .language-box {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+
+        .language-box select {
+            width: auto;
+            padding: 8px;
+        }
+
+
+        .back {
+            color: #2563eb;
+            text-decoration: none;
+        }
+
+
+        .table-box {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            overflow-x: auto;
+        }
+
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+
+        th,
+        td {
+            padding: 13px;
+            border-bottom: 1px solid #ddd;
+            text-align: left;
+        }
+
+
+        th {
+            background: #f1f5f9;
+        }
+
+
+        .button {
+            background: #2563eb;
+            color: white;
+            text-decoration: none;
+            padding: 7px 12px;
+            border-radius: 5px;
+        }
+
+
+        .empty {
+            text-align: center;
+            padding: 30px;
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<div class="container">
+
+
+    <div class="top">
+
+
+        <div>
+
+            <h1 data-i18n="animals">
+                Animals
+            </h1>
+
+
+            <a href="/dashboard"
+               class="back"
+               data-i18n="back">
+
+                ← Back
+
+            </a>
+
+        </div>
+
+
+
+        <div class="language-box">
+
+            <label for="languageSelect"
+                   data-i18n="language">
+
+                Language
+
+            </label>
+
+
+            <select id="languageSelect">
+
+                <option value="en">
+                    English
+                </option>
+
+                <option value="mr">
+                    मराठी
+                </option>
+
+                <option value="hi">
+                    हिन्दी
+                </option>
+
+            </select>
+
+        </div>
+
+
+    </div>
+
+
+
+    <div class="table-box">
+
+
+        {% if animals %}
+
+
+        <table>
+
+
+            <thead>
+
+                <tr>
+
+                    <th data-i18n="animalId">
+                        Animal ID
+                    </th>
+
+                    <th data-i18n="animalName">
+                        Animal Name
+                    </th>
+
+                    <th data-i18n="animalType">
+                        Animal Type
+                    </th>
+
+                    <th data-i18n="breed">
+                        Breed
+                    </th>
+
+                    <th data-i18n="gender">
+                        Gender
+                    </th>
+
+                    <th data-i18n="ownerName">
+                        Owner Name
+                    </th>
+
+                    <th data-i18n="viewDetails">
+                        View Details
+                    </th>
+
+                </tr>
+
+            </thead>
+
+
+
+            <tbody>
+
+
+                {% for animal in animals %}
+
+
+                <tr>
+
+
+                    <td>
+                        {{ animal['animal_id'] }}
+                    </td>
+
+
+                    <td>
+                        {{ animal['animal_name'] }}
+                    </td>
+
+
+                    <td>
+
+                        {% if animal['animal_type'] == 'Cow' %}
+
+                            <span data-i18n="cow">
+                                Cow
+                            </span>
+
+                        {% elif animal['animal_type'] == 'Buffalo' %}
+
+                            <span data-i18n="buffalo">
+                                Buffalo
+                            </span>
+
+                        {% else %}
+
+                            {{ animal['animal_type'] }}
+
+                        {% endif %}
+
+                    </td>
+
+
+                    <td>
+                        {{ animal['breed'] }}
+                    </td>
+
+
+                    <td>
+
+                        {% if animal['gender'] == 'Male' %}
+
+                            <span data-i18n="male">
+                                Male
+                            </span>
+
+                        {% elif animal['gender'] == 'Female' %}
+
+                            <span data-i18n="female">
+                                Female
+                            </span>
+
+                        {% else %}
+
+                            {{ animal['gender'] }}
+
+                        {% endif %}
+
+                    </td>
+
+
+                    <td>
+                        {{ animal['owner_name'] }}
+                    </td>
+
+
+                    <td>
+
+                        <a
+                            href="{{ url_for('animal_details', animal_id=animal['animal_id']) }}"
+                            class="button"
+                            data-i18n="viewDetails">
+
+                            View Details
+
+                        </a>
+
+                    </td>
+
+
+                </tr>
+
+
+                {% endfor %}
+
+
+            </tbody>
+
+
+        </table>
+
+
+        {% else %}
+
+
+        <div class="empty">
+
+
+            <h2 data-i18n="noAnimalsRegistered">
+
+                No animals registered
+
+            </h2>
+
+
+            <p data-i18n="registerFirstAnimal">
+
+                Register your first cow or buffalo
+                to start maintaining digital records.
+
+            </p>
+
+
+            <a href="/add-animal"
+               class="button"
+               data-i18n="registerAnimal">
+
+                Register Animal
+
+            </a>
+
+
+        </div>
+
+
+        {% endif %}
+
+
+    </div>
+
+
+</div>
+
+
+
+<script src="{{ url_for('static', filename='js/language.js') }}"></script>
+
+
+</body>
+
+</html>

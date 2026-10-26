@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Medical Record | PashuAadhar</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
+    <style>
+        .medical-container {
+            max-width: 800px;
+            margin: 40px auto;
+            padding: 30px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .medical-container h1 {
+            text-align: center;
+            margin-bottom: 10px;
+            color: #236b45;
+        }
+
+        .animal-info {
+            text-align: center;
+            margin-bottom: 25px;
+            color: #555;
+        }
+
+        .form-group {
+            margin-bottom: 18px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 7px;
+            font-weight: bold;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 11px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 15px;
+            box-sizing: border-box;
+        }
+
+        .form-group textarea {
+            min-height: 90px;
+            resize: vertical;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-top: 25px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 6px;
+            text-decoration: none;
+            font-size: 15px;
+            cursor: pointer;
+            text-align: center;
+        }
+
+        .save-btn {
+            background: #236b45;
+            color: white;
+        }
+
+        .back-btn {
+            background: #e5e7eb;
+            color: #222;
+        }
+
+        .save-btn:hover {
+            background: #194d32;
+        }
+
+        @media (max-width: 600px) {
+            .medical-container {
+                margin: 20px 12px;
+                padding: 20px;
+            }
+
+            .button-group .btn {
+                width: 100%;
+                box-sizing: border-box;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="medical-container">
+
+        <h1>Add Medical Record</h1>
+
+        <div class="animal-info">
+            <p><strong>Animal ID:</strong> {{ animal['animal_id'] }}</p>
+            <p><strong>Animal Name:</strong> {{ animal['animal_name'] }}</p>
+        </div>
+
+        <form method="POST">
+
+            <div class="form-group">
+                <label for="visit_date">Visit Date *</label>
+                <input
+                    type="date"
+                    id="visit_date"
+                    name="visit_date"
+                    required
+                >
+            </div>
+
+            <div class="form-group">
+                <label for="symptoms">Symptoms</label>
+                <textarea
+                    id="symptoms"
+                    name="symptoms"
+                    placeholder="Describe the animal's symptoms"
+                ></textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="diagnosis">Diagnosis</label>
+                <textarea
+                    id="diagnosis"
+                    name="diagnosis"
+                    placeholder="Enter the veterinarian's diagnosis"
+                ></textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="treatment">Treatment</label>
+                <textarea
+                    id="treatment"
+                    name="treatment"
+                    placeholder="Describe the treatment provided"
+                ></textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="medicines">Medicines</label>
+                <textarea
+                    id="medicines"
+                    name="medicines"
+                    placeholder="Enter medicine names and instructions"
+                ></textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="veterinarian">Veterinarian Name</label>
+                <input
+                    type="text"
+                    id="veterinarian"
+                    name="veterinarian"
+                    placeholder="Enter veterinarian's name"
+                >
+            </div>
+
+            <div class="form-group">
+                <label for="notes">Additional Notes</label>
+                <textarea
+                    id="notes"
+                    name="notes"
+                    placeholder="Enter any additional information"
+                ></textarea>
+            </div>
+
+            <div class="button-group">
+                <button type="submit" class="btn save-btn">
+                    Save Medical Record
+                </button>
+
+                <a
+                    href="{{ url_for('animal_details', animal_id=animal['animal_id']) }}"
+                    class="btn back-btn"
+                >
+                    Back to Animal Details
+                </a>
+            </div>
+
+        </form>
+
+    </div>
+
+</body>
+</html>

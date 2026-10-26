@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PashuTrack</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+
+    <div class="navbar">
+        <div class="logo">🐄 PashuTrack</div>
+
+        <div class="nav-links">
+            <a href="/">Home</a>
+            <a href="#">About</a>
+           <a href="{{ url_for('login') }}">Login</a>
+           
+        </div>
+    </div>
+
+
+    <section class="hero">
+
+        <div class="hero-content">
+
+            <h1>Smart Livestock Management</h1>
+
+            <p>
+                A digital platform to manage the health,
+                vaccination, pregnancy, medical and other
+                important records of cows and buffaloes.
+            </p>
+
+            <button onclick="showMessage()">
+                Get Started
+            </button>
+
+        </div>
+
+        <div class="hero-image">
+            🐄
+        </div>
+
+    </section>
+
+
+    <section class="features">
+
+        <h2>Our Features</h2>
+
+        <div class="feature-container">
+
+            <div class="feature-card">
+                <div class="icon">📱</div>
+                <h3>QR Identification</h3>
+                <p>
+                    Every animal gets a unique digital identity
+                    through a QR code.
+                </p>
+            </div>
+
+
+            <div class="feature-card">
+                <div class="icon">💉</div>
+                <h3>Vaccination Records</h3>
+                <p>
+                    Maintain complete vaccination history
+                    and upcoming vaccination dates.
+                </p>
+            </div>
+
+
+            <div class="feature-card">
+                <div class="icon">🩺</div>
+                <h3>Medical History</h3>
+                <p>
+                    Store diseases, treatments and
+                    veterinary visit records.
+                </p>
+            </div>
+
+
+            <div class="feature-card">
+                <div class="icon">📊</div>
+                <h3>Data Analytics</h3>
+                <p>
+                    Analyze livestock information using
+                    charts and useful statistics.
+                </p>
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <footer>
+        <p>© 2026 PashuTrack | Digital Livestock Management System</p>
+    </footer>
+
+
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+
+</body>
+</html>

@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title data-i18n="loginTitle">PashuTrack - Login</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #e8f5e9, #f1f8e9);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .login-container {
+            width: 420px;
+            background: white;
+            padding: 35px;
+            border-radius: 18px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
+        }
+
+        .logo {
+            text-align: center;
+            font-size: 50px;
+            margin-bottom: 10px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #2e7d32;
+            margin-bottom: 5px;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 25px;
+        }
+
+        .language-box {
+            margin-bottom: 20px;
+        }
+
+        .language-box label {
+            display: block;
+            margin-bottom: 7px;
+            font-weight: bold;
+        }
+
+        .language-box select,
+        input,
+        button {
+            width: 100%;
+            padding: 12px;
+            border-radius: 8px;
+            font-size: 15px;
+        }
+
+        .language-box select,
+        input {
+            border: 1px solid #ccc;
+        }
+
+        .form-group {
+            margin-bottom: 18px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 7px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        input:focus,
+        select:focus {
+            outline: none;
+            border-color: #2e7d32;
+        }
+
+        .login-button {
+            border: none;
+            background: #2e7d32;
+            color: white;
+            cursor: pointer;
+            font-weight: bold;
+            margin-top: 5px;
+        }
+
+        .login-button:hover {
+            background: #1b5e20;
+        }
+
+        .roles {
+            margin-top: 25px;
+            padding: 15px;
+            background: #f5f5f5;
+            border-radius: 10px;
+        }
+
+        .roles h3 {
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        .roles p {
+            margin: 6px 0;
+            color: #555;
+        }
+
+        .error-message {
+            background: #ffebee;
+            color: #c62828;
+            padding: 10px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+
+        .demo-note {
+            margin-top: 18px;
+            text-align: center;
+            font-size: 13px;
+            color: #777;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="login-container">
+
+        <div class="logo">🐄</div>
+
+        <h1>PashuTrack</h1>
+
+        <p class="subtitle" data-i18n="livestockManagement">
+            Livestock Management System
+        </p>
+
+        <!-- LANGUAGE -->
+        <div class="language-box">
+
+            <label for="languageSelect" data-i18n="language">
+                Language
+            </label>
+
+            <select id="languageSelect">
+
+                <option value="en">English</option>
+
+                <option value="mr">
+                    मराठी
+                </option>
+
+                <option value="hi">
+                    हिन्दी
+                </option>
+
+            </select>
+
+        </div>
+
+
+        <!-- ERROR MESSAGE -->
+
+        {% if error %}
+
+        <div class="error-message">
+            {{ error }}
+        </div>
+
+        {% endif %}
+
+
+        <!-- LOGIN FORM -->
+
+        <form method="POST" action="{{ url_for('login') }}">
+
+            <div class="form-group">
+
+                <label for="username"
+                       data-i18n="username">
+                    Username
+                </label>
+
+                <input
+                    type="text"
+                    id="username"
+                    name="username"
+                    placeholder="Enter username"
+                    data-i18n-placeholder="enterUsername"
+                    required
+                >
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="password"
+                       data-i18n="password">
+                    Password
+                </label>
+
+                <input
+                    type="password"
+                    id="password"
+                    name="password"
+                    placeholder="Enter password"
+                    data-i18n-placeholder="enterPassword"
+                    required
+                >
+
+            </div>
+
+
+            <button
+                type="submit"
+                class="login-button"
+                data-i18n="login">
+                Login
+            </button>
+
+        </form>
+
+
+        <!-- ROLES -->
+
+        <div class="roles">
+
+            <h3 data-i18n="availableRoles">
+                Available Roles
+            </h3>
+
+            <p>
+                👨‍🌾
+                <strong data-i18n="farmer">
+                    Farmer
+                </strong>
+                -
+                <span data-i18n="farmerAccess">
+                    Manage own animals
+                </span>
+            </p>
+
+            <p>
+                👨‍⚕️
+                <strong data-i18n="veterinarian">
+                    Veterinarian
+                </strong>
+                -
+                <span data-i18n="veterinarianAccess">
+                    Manage animal health records
+                </span>
+            </p>
+
+            <p>
+                👨‍💼
+                <strong data-i18n="administrator">
+                    Administrator
+                </strong>
+                -
+                <span data-i18n="administratorAccess">
+                    Manage the system
+                </span>
+            </p>
+
+        </div>
+
+
+        <p class="demo-note"
+           data-i18n="loginDemoNote">
+            Secure role-based access for livestock records
+        </p>
+
+    </div>
+
+
+    <!-- COMMON LANGUAGE SYSTEM -->
+
+    <script src="{{ url_for('static', filename='js/language.js') }}"></script>
+
+</body>
+
+</html>

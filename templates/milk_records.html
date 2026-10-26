@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Milk Production History | PashuAadhar</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
+    <style>
+        .page-container {
+            max-width: 1100px;
+            margin: 35px auto;
+            padding: 25px;
+        }
+
+        .page-header {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            margin-bottom: 25px;
+            box-shadow: 0 3px 12px rgba(0, 0, 0, 0.08);
+        }
+
+        h1, h2 {
+            color: #236b45;
+        }
+
+        .animal-info {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 25px;
+            color: #555;
+        }
+
+        .animal-info p {
+            margin: 5px 0;
+        }
+
+        .button {
+            display: inline-block;
+            padding: 11px 18px;
+            margin: 8px 8px 8px 0;
+            border-radius: 6px;
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        .add-button {
+            background: #236b45;
+            color: white;
+        }
+
+        .back-button {
+            background: #e5e7eb;
+            color: #222;
+        }
+
+        .summary-container {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .summary-card {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 3px 12px rgba(0, 0, 0, 0.07);
+        }
+
+        .summary-card h3 {
+            margin: 0 0 12px;
+            color: #555;
+            font-size: 15px;
+        }
+
+        .summary-card .value {
+            font-size: 26px;
+            font-weight: bold;
+            color: #236b45;
+        }
+
+        .table-container {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            overflow-x: auto;
+            box-shadow: 0 3px 12px rgba(0, 0, 0, 0.07);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 650px;
+        }
+
+        th, td {
+            padding: 13px;
+            text-align: left;
+            border-bottom: 1px solid #eee;
+        }
+
+        th {
+            background: #236b45;
+            color: white;
+        }
+
+        tbody tr:hover {
+            background: #f7faf8;
+        }
+
+        .notes {
+            overflow-wrap: anywhere;
+            max-width: 250px;
+        }
+
+        .empty-message {
+            background: white;
+            padding: 30px;
+            text-align: center;
+            border-radius: 10px;
+            color: #666;
+        }
+
+        @media (max-width: 650px) {
+            .page-container {
+                margin: 15px auto;
+                padding: 12px;
+            }
+
+            .page-header {
+                padding: 18px;
+            }
+
+            .summary-container {
+                grid-template-columns: 1fr;
+            }
+
+            .table-container {
+                padding: 10px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <main class="page-container">
+
+        <section class="page-header">
+
+            <h1>Milk Production History</h1>
+
+            <div class="animal-info">
+
+                <p>
+                    <strong>Animal ID:</strong>
+                    {{ animal['animal_id'] }}
+                </p>
+
+                <p>
+                    <strong>Animal Name:</strong>
+                    {{ animal['animal_name'] }}
+                </p>
+
+                <p>
+                    <strong>Animal Type:</strong>
+                    {{ animal['animal_type'] }}
+                </p>
+
+            </div>
+
+            <a
+                href="{{ url_for('add_milk_record', animal_id=animal['animal_id']) }}"
+                class="button add-button"
+            >
+                + Add Milk Record
+            </a>
+
+            <a
+                href="{{ url_for('animal_details', animal_id=animal['animal_id']) }}"
+                class="button back-button"
+            >
+                Back to Animal Details
+            </a>
+
+        </section>
+
+        <h2>Production Summary</h2>
+
+        <section class="summary-container">
+
+            <div class="summary-card">
+                <h3>Total Morning Milk</h3>
+                <div class="value">
+                    {{ "%.2f"|format(total_morning) }} L
+                </div>
+            </div>
+
+            <div class="summary-card">
+                <h3>Total Evening Milk</h3>
+                <div class="value">
+                    {{ "%.2f"|format(total_evening) }} L
+                </div>
+            </div>
+
+            <div class="summary-card">
+                <h3>Total Recorded Production</h3>
+                <div class="value">
+                    {{ "%.2f"|format(total_production) }} L
+                </div>
+            </div>
+
+        </section>
+
+        <h2>Daily Production Records</h2>
+
+        {% if milk_records %}
+
+            <div class="table-container">
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Morning (L)</th>
+                            <th>Evening (L)</th>
+                            <th>Total (L)</th>
+                            <th>Notes</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+
+                        {% for record in milk_records %}
+
+                            <tr>
+                                <td>{{ record['production_date'] }}</td>
+
+                                <td>
+                                    {{ "%.2f"|format(record['morning_milk']) }}
+                                </td>
+
+                                <td>
+                                    {{ "%.2f"|format(record['evening_milk']) }}
+                                </td>
+
+                                <td>
+                                    <strong>
+                                        {{ "%.2f"|format(record['total_milk']) }}
+                                    </strong>
+                                </td>
+
+                                <td class="notes">
+                                    {{ record['notes'] or '—' }}
+                                </td>
+                            </tr>
+
+                        {% endfor %}
+
+                    </tbody>
+                </table>
+
+            </div>
+
+        {% else %}
+
+            <div class="empty-message">
+
+                <h3>No Milk Production Records Found</h3>
+
+                <p>
+                    No milk production has been recorded for this animal yet.
+                </p>
+
+                <p>
+                    Select <strong>Add Milk Record</strong> to enter the
+                    morning and evening milk quantities.
+                </p>
+
+            </div>
+
+        {% endif %}
+
+    </main>
+
+</body>
+</html>

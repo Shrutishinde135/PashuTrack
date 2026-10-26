@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Ownership History - PashuAadhar</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
+    <style>
+        .history-container {
+            max-width: 1100px;
+            margin: 30px auto;
+            padding: 25px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+        }
+
+        .animal-info {
+            padding: 15px;
+            margin: 20px 0;
+            background: #f0f7ed;
+            border-radius: 8px;
+        }
+
+        .history-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .history-header a,
+        .action-button {
+            display: inline-block;
+            padding: 10px 16px;
+            border-radius: 6px;
+            text-decoration: none;
+            border: none;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .add-button {
+            background: #287a3d;
+            color: white;
+        }
+
+        .back-button {
+            background: #e5e7eb;
+            color: #222;
+        }
+
+        .table-wrapper {
+            width: 100%;
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            min-width: 850px;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 12px;
+            border: 1px solid #ddd;
+            text-align: left;
+            vertical-align: top;
+        }
+
+        th {
+            background: #287a3d;
+            color: white;
+        }
+
+        tbody tr:nth-child(even) {
+            background: #f8faf8;
+        }
+
+        .empty-message {
+            padding: 25px;
+            text-align: center;
+            background: #f8faf8;
+            border-radius: 8px;
+        }
+
+        .price {
+            white-space: nowrap;
+        }
+
+        .notes-cell {
+            white-space: pre-wrap;
+            min-width: 150px;
+        }
+
+        @media (max-width: 600px) {
+            .history-container {
+                margin: 15px;
+                padding: 15px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <main class="history-container">
+
+        <h2>Ownership History</h2>
+        <p>View the ownership transfer history of this animal.</p>
+
+        <div class="animal-info">
+            <strong>Animal ID:</strong>
+            {{ animal['animal_id'] }}<br>
+
+            <strong>Animal Name:</strong>
+            {{ animal['animal_name'] }}<br>
+
+            <strong>Animal Type:</strong>
+            {{ animal['animal_type'] }}<br>
+
+            <strong>Current Owner:</strong>
+            {{ animal['owner_name'] }}
+        </div>
+
+        <div class="history-header">
+            <h3>Previous Ownership Transfers</h3>
+
+            <a
+                href="{{ url_for('add_ownership_transfer', animal_id=animal['animal_id']) }}"
+                class="add-button"
+            >
+                + Add Ownership Transfer
+            </a>
+        </div>
+
+        {% if ownership_records %}
+
+        <div class="table-wrapper">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Transfer Date</th>
+                        <th>Previous Owner</th>
+                        <th>Previous Owner Phone</th>
+                        <th>New Owner</th>
+                        <th>New Owner Phone</th>
+                        <th>Transfer Price</th>
+                        <th>Reason</th>
+                        <th>Notes</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    {% for record in ownership_records %}
+                    <tr>
+                        <td>{{ record['transfer_date'] }}</td>
+
+                        <td>{{ record['previous_owner'] }}</td>
+
+                        <td>
+                            {{ record['previous_owner_phone'] or 'Not provided' }}
+                        </td>
+
+                        <td>{{ record['new_owner'] }}</td>
+
+                        <td>
+                            {{ record['new_owner_phone'] or 'Not provided' }}
+                        </td>
+
+                        <td class="price">
+                            ₹{{ "%.2f"|format(record['transfer_price'] or 0) }}
+                        </td>
+
+                        <td>
+                            {{ record['transfer_reason'] or 'Not specified' }}
+                        </td>
+
+                        <td class="notes-cell">
+                            {{ record['notes'] or '—' }}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        {% else %}
+
+        <div class="empty-message">
+            <h3>No Ownership Transfers Yet</h3>
+            <p>No ownership transfer records have been added for this animal.</p>
+            <p>Click <strong>Add Ownership Transfer</strong> to record the first transfer.</p>
+        </div>
+
+        {% endif %}
+
+        <div class="history-header" style="margin-top: 25px;">
+            <a
+                href="{{ url_for('animal_details', animal_id=animal['animal_id']) }}"
+                class="back-button"
+            >
+                Back to Animal Details
+            </a>
+        </div>
+
+    </main>
+
+</body>
+</html>
